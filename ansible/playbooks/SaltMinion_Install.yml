@@ -1,0 +1,14 @@
+- hosts: salt-minions # Specify from inventory file.
+  remote_user: root
+
+  vars:
+      master_ip: 192.168.0.2{{ team_number }}
+
+  tasks:
+      - name: SaltBootstrap-OneLiner
+        shell: python -c "import urllib2; print urllib2.urlopen('https://bootstrap.saltstack.com').read()" > bs.sh && sh bs.sh -A {{ master_ip }}
+        tags:
+            - Bootstrap
+
+      - name: Restart salt-minion
+        service: name=salt-minion state=restarted

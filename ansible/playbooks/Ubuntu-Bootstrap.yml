@@ -1,0 +1,15 @@
+#- hosts: all
+- hosts: 192.168.0.22
+  remote_user: root
+  gather_facts: no
+
+  tasks:
+      - name: Remove cdrom as repo in sources.list
+        raw: sed -i 's/^deb cdrom/#deb cdrom/' /etc/apt/sources.list
+
+      - name: Update apt Cache
+        raw: apt-get update
+
+      - name: Install Python on Ubuntu
+        raw: apt-get install python-minimal -y --allow-unauthenticated
+

@@ -1,0 +1,24 @@
+[all]
+salt-masters,salt-minions
+
+[team0]
+192.168.0.20
+192.168.0.110
+
+[team1]
+192.168.0.103
+
+[team0:vars]
+team_number=0
+
+[team1:vars]
+team_number=1
+
+[salt-masters]
+#192.168.0.20	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=0
+192.168.0.22	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=0
+#192.168.0.103	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=1
+
+[salt-minions]
+192.168.0.104 	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=0
+192.168.0.105 	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=1
