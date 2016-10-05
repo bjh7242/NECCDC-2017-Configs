@@ -1,0 +1,13 @@
+---
+- hosts: web_servers
+
+  tasks:
+      - name: Installing Docker Stack (Tested on Ubuntu 1604).
+        package: name=docker.io
+        become: yes
+        tags: install_docker
+
+      - name: Installing Apache for remote Docker administration.
+        service: enable=apache2 state=restarted
+        become: yes
+        tags: starting_apache
