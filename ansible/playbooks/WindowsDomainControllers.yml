@@ -1,0 +1,19 @@
+# Notes:
+# In order to promote a host to a domain controller, it must have a local administrator password set that meets
+# password complexity requirements (typically, 8 chars, 1 lowercase, 1 uppercase, 1 num/special char)
+# cmd: net user administrator *
+
+- hosts: domain-controllers
+  remote_user: admin
+
+  #vars:
+  #    master_ip: 192.168.0.2{{ team_number }}
+  #    domainname: {{ domainname }}
+  #    netbiosname: {{ netbiosname }}
+
+  tasks:
+      - name: Promote Host to Domain Controller (NOTE - local Administrator account must have a password set that meets complexity requirements)
+        #debug: msg="NOTE The Local Administrator account must have a password set that meets the complexity requirements"
+        script: scripts/Install-AD.ps1 {{ domainname }} {{ netbiosname }} {{ adbackuppass }}
+        tags:
+            - dcpromo

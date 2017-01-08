@@ -27,3 +27,8 @@ team_number=1
 192.168.164.133	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
 192.168.164.134	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
 192.168.164.132	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
+
+[domain-controllers]
+192.168.164.134	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team0.ccdc  netbiosname=TEAM0  adbackuppass=Netsys0!
+192.168.164.135	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team1.ccdc  netbiosname=TEAM1  adbackuppass=Netsys1!
+
