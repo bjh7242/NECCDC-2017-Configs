@@ -1,0 +1,5 @@
+ansible
+kerberos
+requests_kerberos
+markupsafe
+pywinrm>=0.1.1
