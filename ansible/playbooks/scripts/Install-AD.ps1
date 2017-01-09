@@ -3,7 +3,7 @@
 #
 param([string]$DomainName, [string]$NetBiosName, [string]$ADPassword)
 
-Add-WindowsFeature AD-Domain-Services
+Add-WindowsFeature AD-Domain-Services,RSAT-AD-PowerShell,RSAT-AD-AdminCenter
 $password = ConvertTo-SecureString "$ADPassword" -asplaintext -force
 
 Import-Module ADDSDeployment

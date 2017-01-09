@@ -1,0 +1,19 @@
+# Notes:
+# The WindowsDomainControllers.yml playbook must be completed prior to running this playbook
+
+- hosts: domain-controllers
+  remote_user: admin
+
+  tasks:
+      - name: Deploy User CSV
+        win_copy:
+          src: scripts/useraccounts.csv
+          dest: C:\useraccounts.csv
+
+      - name: Add domain users
+        script: scripts/Add-DomainUsers.ps1 
+
+      - name: Delete User CSV
+        win_file:
+          path: C:\useraccounts.csv
+          state: absent
