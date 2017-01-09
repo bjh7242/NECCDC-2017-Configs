@@ -1,0 +1,11 @@
+# Notes:
+# In order to promote a host to a domain controller, it must have a local administrator password set that meets
+# password complexity requirements (typically, 8 chars, 1 lowercase, 1 uppercase, 1 num/special char)
+# cmd: net user administrator *
+
+- hosts: windows-clients
+  remote_user: admin
+
+  tasks:
+      - name: Join Domain
+        script: scripts/Join-Domain.ps1 {{ domainname }} {{ domaincontrollerip }} {{ username }} {{ password }}
