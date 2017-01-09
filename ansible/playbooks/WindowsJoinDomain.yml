@@ -5,6 +5,7 @@
 
 - hosts: windows-clients
   remote_user: admin
+  gather_facts: no
 
   tasks:
       - name: Join Domain

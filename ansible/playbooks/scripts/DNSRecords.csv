@@ -1,0 +1,7 @@
+Type,Address,Name
+A,192.168.164.10,win7.teamX.ccdc
+A,192.168.164.20,win8.teamX.ccdc
+A,192.168.164.30,win10.teamX.ccdc
+A,192.168.164.134,dc.teamX.ccdc
+A,192.168.164.140,mail.teamX.ccdc
+MX,192.168.164.140,mail.teamX.ccdc

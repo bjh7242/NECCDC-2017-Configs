@@ -1,0 +1,22 @@
+# Notes:
+# In order to promote a host to a domain controller, it must have a local administrator password set that meets
+# password complexity requirements (typically, 8 chars, 1 lowercase, 1 uppercase, 1 num/special char)
+# cmd: net user administrator *
+
+- hosts: domain-controllers
+  remote_user: admin
+  gather_facts: no
+
+  tasks:
+      - name: Copy DNS Record CSV
+        win_copy: 
+          src: scripts/DNSRecords.csv
+          dest: C:\DNSRecords.csv
+
+      - name: Add DNS records
+        script: scripts/Add-DnsRecords.ps1 C:\DNSRecords.csv {{ team_number }}
+
+      - name: Delete DNS Record CSV
+        win_file:
+          path: C:\DNSRecords.csv
+          state: absent

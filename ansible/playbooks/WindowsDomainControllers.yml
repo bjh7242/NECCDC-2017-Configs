@@ -5,6 +5,7 @@
 
 - hosts: domain-controllers
   remote_user: admin
+  gather_facts: no
 
   #vars:
   #    master_ip: 192.168.0.2{{ team_number }}

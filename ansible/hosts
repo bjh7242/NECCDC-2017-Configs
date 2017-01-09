@@ -24,14 +24,26 @@ team_number=1
 192.168.0.105 	ansible_connection=ssh	ansible_user=root	ansible_password=changeme	team_number=1
 
 [windows]
-192.168.164.133	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
-192.168.164.134	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
-192.168.164.132	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_winrm_Server_cert_validation=ignore ansible_port=5985
+192.168.164.132
+192.168.164.133	
+192.168.164.134
+192.168.164.135
+
+[windows:children]
+domain-controllers
+windows-clients
+
+[windows:vars]
+ansible_connection=winrm
+ansible_users=admin
+ansible_password=netsys
+ansible_port=5985
 
 [domain-controllers]
-192.168.164.134	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team0.ccdc  netbiosname=TEAM0  adbackuppass=Netsys0!
-192.168.164.135	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team1.ccdc  netbiosname=TEAM1  adbackuppass=Netsys1!
+192.168.164.134	domainname=team0.ccdc  netbiosname=TEAM0  adbackuppass=Netsys0!  team_number=0
+192.168.164.135	domainname=team1.ccdc  netbiosname=TEAM1  adbackuppass=Netsys1!  team_number=1
+
 
 [windows-clients]
-192.168.164.132	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team0.ccdc  domaincontrollerip="192.168.164.134"  username="team0\admin"  password=netsys
-192.168.164.133	ansible_connection=winrm  ansible_user=admin	ansible_password=netsys ansible_port=5985  domainname=team1.ccdc  domaincontrollerip="192.168.164.135"  username="team1\admin"  password=netsys
+192.168.164.132	domainname=team0.ccdc  domaincontrollerip="192.168.164.134"  username="team0\admin"  password=netsys
+192.168.164.133	domainname=team1.ccdc  domaincontrollerip="192.168.164.135"  username="team1\admin"  password=netsys
