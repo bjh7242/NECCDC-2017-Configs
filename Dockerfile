@@ -1,6 +1,7 @@
-FROM ubuntu:1604
+FROM ubuntu
 MAINTAINER NECCDC
-EXPOSE 22 80 443
+EXPOSE 23 21 80 443
+RUN apt-get update -y
 RUN apt-get install nginx openssh-server -y
 RUN mkdir /var/run/sshd
 RUN echo 'root:Password*' | chpasswd
@@ -10,5 +11,9 @@ RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/ss
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
-CMD ["/usr/sbin/sshd", "-D"]
-CMD ["/usr/sbin/nginx"]
+echo "container-www" > /etc/hostname
+
+### Add vulnerabilities
+
+### To mount host dir into container run cmd below:
+# docker run -v /Users/<path>:/<container path> 
