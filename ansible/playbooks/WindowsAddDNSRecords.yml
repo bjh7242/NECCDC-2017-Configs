@@ -14,7 +14,7 @@
           dest: C:\DNSRecords.csv
 
       - name: Add DNS records
-        script: scripts/Add-DnsRecords.ps1 C:\DNSRecords.csv {{ team_number }}
+        script: scripts/Add-DnsRecords.ps1 C:\DNSRecords.csv {{ team_number }} -CreatePtrs
 
       - name: Delete DNS Record CSV
         win_file:

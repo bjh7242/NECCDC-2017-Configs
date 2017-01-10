@@ -35,4 +35,8 @@ Example:
 192.168.0.104   ansible_connection=winrm  ansible_user=admin    ansible_password=netsys ansible_port=5985 (optional if using HTTPS: ansible_winrm_server_cert_validation=ignore)
 ```
 
-
+### Order to Execute Playbooks
+1. WindowsDomainControllers.yml -- Sets up a domain and promotes hosts to DC
+2. WindowsJoinDomain.yml -- Joins Windows clients to the domain
+3. WindowsDomainUsers.yml -- Adds users from the .csv file playbooks/scripts/useraccounts.csv
+4. WindowsAddDNSRecords.yml -- Adds DNS records for the domain based on the playbook/scripts/DNSRecords.csv file
