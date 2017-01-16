@@ -3,7 +3,18 @@
 ### How to build docker image from Dockerfile
 * Make sure you're in the same directory as the Dockerfile.
 ```
-docker build -t ccdc/www:v1 .
+1) docker build .
+2) docker tag "hash of build" ccdc:www
+```
+
+### How to import pre-build Docker image.
+```
+docker import Docker_www_ccdc.tar.gz
+```
+
+### How to mount directory into container.
+```
+docker run -v /absolute/path/:/internal/docker/directory/ container:tag /executable/
 ```
 
 <br />
