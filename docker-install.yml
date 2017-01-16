@@ -27,3 +27,12 @@
         become: yes
         become_user: root
         tags: shipyard_nodes
+
+
+# Import Docker image.
+#- hosts: container_hosts
+#  tasks:
+#	  - name: Importing Docker Image
+#		command: docker import /tmp/docker-www-prod.tar.gz	
+##		become: yes
+#		become_user: root
