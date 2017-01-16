@@ -7,6 +7,11 @@
 2) docker tag "hash of build" ccdc:www
 ```
 
+### How to export a docker container into an image.
+```
+docker export 6c2209c66168 -o Docker_www_ccdc.tar.gz                                    
+```
+
 ### How to import pre-build Docker image.
 ```
 docker import Docker_www_ccdc.tar.gz
