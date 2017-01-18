@@ -1,5 +1,5 @@
 ---
-- hosts: docker_web_servers
+- hosts: docker_web_hosts
 
   tasks:
       - name: Installing Docker Stack (Tested on Ubuntu 1604).
@@ -10,7 +10,7 @@
 
 - hosts: shipyard_host
   tasks:
-      - name: Install Shipyard
+      - name: Install Shipyard (Orchestration)
         shell: curl -sSL https://shipyard-project.com/deploy | IMAGE=shipyard/shipyard:test bash -s
         become: yes
         become_user: root
@@ -19,7 +19,7 @@
 
 - hosts: shipyard_nodes
   vars:
-    shipyard_server: ec2-54-82-251-167.compute-1.amazonaws.com
+    shipyard_server: ec2-54-82-251-167.compute-1.amazonaws.com # Each team requires 1 shipyard instance.
 
   tasks:
       - name: Install Shipyard
