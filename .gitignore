@@ -2,3 +2,4 @@ inventory.yml
 *.tar.gz
 www/*
 *.retry
+*.txt
