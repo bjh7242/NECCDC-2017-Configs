@@ -8,7 +8,6 @@ Disclaimer: This is terrible.
 import os
 import argparse
 import pdb
-# aws ec2 describe-instances --query "Reservations[].Instances[][ImageId,PublicIpAddress]"
 
 def get_ips():
 	'''
@@ -26,9 +25,9 @@ def get_ips():
 def get_domains():
 	'''
 	Name: get_domains()
-	Description: Obtain IP addresses from text file.
-				 Each address is on a new line.	
-	Return: List of (strings) IPv4 addresses.
+	Description: Obtain domain names from text file.
+				 Each domain is on a new line.	
+	Return: List of (strings) domain names.
 	'''
 	with open("DO_domains.txt") as fin:
 		domains = fin.readlines()
@@ -36,18 +35,16 @@ def get_domains():
 	domains = [domain.strip() for domain in domains]
 	return domains 
 
-
 def DO_subdomain_creator(subdomain, list_of_ips):
-	for counter, address in enumerate(list_of_ips):
+	#for counter, address in enumerate(list_of_ips):
 		#print("blueteam%s-%s.fantasysports.trade --> %s" % (str(counter), subdomain, address))
-		os.system("./fantasytrade-update blueteam%s-%s %s\n" % (str(counter), str(subdomain), str(address)))
-	
-
-#def DO_subdomain_deleter(list_of_domains):
-#	os.system("./fantasty-list | egrep -oh 'blueteam\w-\w+' > DO_domains.txt")
-#	for domain in list_of_domains:
-#		os.system("./fantasty-destory ")
-		
+	#	os.system("./fantasytrade-update blueteam%s-%s %s\n" % (str(counter), str(subdomain), str(address)))
+	x = 1
+	for address in list_of_ips:
+		print("blueteam%s-%s --> %s\n" % (str(x), str(subdomain), str(address)))
+		x += 1
+		if x > 10:
+			break
 
 if __name__ == "__main__":
 
