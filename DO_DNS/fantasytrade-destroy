@@ -1,0 +1,15 @@
+#!/bin/bash
+TOKEN=80aa577ab869775aa38d2b5f83252238a75b1441cf6e08a053f36932204c02e8
+DOMAIN="fantasysports.trade"
+RECORDID=$1
+
+# Get ALL DNS records.
+#curl -X GET "https://api.digitalocean.com/v2/domains/fantasysports.trade/records" -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" 
+
+#curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{"type":"A","name":"'{$SUBDOMAIN}'","data":"'{$IP}'","priority":null,"port":null,"weight":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
+
+#curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{"type":"A","name":"'$SUBDOMAIN'","data":"'$IP'","priority":null,"port":null,"weight":null}' "https://api.digitalocean.com/v2/domains/$DOMAIN/records"
+
+#echo "Subdomain is $SUBDOMAIN"
+#echo "IP is $IP"
+curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" "https://api.digitalocean.com/v2/domains/example.com/records/$RECORDID"
