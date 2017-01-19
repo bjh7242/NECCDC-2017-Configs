@@ -1,0 +1,38 @@
+---
+- hosts: docker_web_hosts
+
+  tasks:
+      - name: Installing Docker Stack (Tested on Ubuntu 1604).
+        package: name=docker.io
+        become: yes
+        become_user: root
+        tags: install_docker
+
+- hosts: shipyard_host
+  tasks:
+      - name: Install Shipyard (Orchestration)
+        shell: curl -sSL https://shipyard-project.com/deploy | IMAGE=shipyard/shipyard:test bash -s
+        become: yes
+        become_user: root
+        ignore_errors: yes
+        tags: install_shipyard
+
+- hosts: shipyard_nodes
+  vars:
+    shipyard_server: ec2-54-82-251-167.compute-1.amazonaws.com # Each team requires 1 shipyard instance.
+
+  tasks:
+      - name: Install Shipyard
+        command: curl -sSL https://shipyard-project.com/deploy | ACTION=node DISCOVERY=etcd://{{ shipyard_server }}:4001 bash -s 
+        become: yes
+        become_user: root
+        tags: shipyard_nodes
+
+
+# Import Docker image.
+#- hosts: container_hosts
+#  tasks:
+#	  - name: Importing Docker Image
+#		command: docker import /tmp/docker-www-prod.tar.gz	
+##		become: yes
+#		become_user: root

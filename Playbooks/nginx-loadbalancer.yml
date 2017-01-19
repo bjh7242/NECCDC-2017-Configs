@@ -1,0 +1,14 @@
+---
+- hosts: load_balancer
+
+  tasks:
+      - name: Install Nginx
+        package: nginx state: latest
+        become: yes
+        become_user: root
+        tags: install_nginx
+
+      - name: Copy Config
+        src: Configs/loadbalancer.conf
+        dest: /etc/nginx/nginx.conf
+        owner: nginx
