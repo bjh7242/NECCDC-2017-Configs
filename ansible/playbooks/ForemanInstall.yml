@@ -1,9 +1,9 @@
 - hosts: foreman
   remote_user: root
+  strategy: debug
 
   tasks:
       - name: Add Puppetlabs Repo
-        #raw: echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main > /etc/apt/sources.list.d/saltstack.list
         raw: yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 
       - name: Install EPEL
@@ -18,22 +18,20 @@
       - name: Download Foreman Installer
         raw: yum -y install foreman-installer
 
-     # - name: Copy foreman-answers.yaml file
-
-     # - name: Running sed to replace answer file with team number
-
       - name: Install Foreman
         raw: foreman-installer
 
-     # - name: foreman-rake apipie:cache
-     #   raw: foreman-rake apipie:cache
-
       - name: Integrate Foreman with team AD/LDAP server
-        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname "givenName" --attr-lastname "sn" --attr-login "SamAccountName" --attr-mail "mail" --server-type "active_directory" --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account "{{ teamnumber }}\\administrator" --account-password "Netsys1!"
+        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname "givenName" --attr-lastname "sn" --attr-login "SamAccountName" --attr-mail "mail" --server-type "active_directory" --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account "{{ teamname }}\\administrator" --account-password "Netsys1!"
 
       - name: Fix Hammer role filter permissions for the Default role
         raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role "Default role" --permission-ids $i; done
 
-      #- name: ** MANUALLY CHECK THE CREATE USERACCOUNT AT LOGIN BOX **
+      - name: Update admin password to Netsys1!
+        raw: hammer user update --login admin --password 'Netsys1!'
+
+      - name: "Manually check the useraccount creation at login box for LDAP auth"
+        debug:
+          msg: "** MANUALLY CHECK THE CREATE USERACCOUNT AT LOGIN BOX IN THE LDAP SETTINGS **"
 
 
