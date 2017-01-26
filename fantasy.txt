@@ -1,0 +1,34 @@
+Banner
+	homepage
+		Trending Games
+		Scores/Schedules
+		Standings
+		Stats
+		Teams
+		Players
+	Overview
+	Message Boards
+	Profile
+		Performance
+		Player since
+		medals
+		Your teams
+		Change account info
+			Nickname
+			Firname
+			Lastname
+			Gender
+			Birthday
+			
+	
+	signin
+		two factor?
+	My Fantasy
+		Join League
+		Make League
+		My Leagues
+			Draft Team - budget remaining
+				positions available
+				people remaining
+			Display 
+	Alerts
