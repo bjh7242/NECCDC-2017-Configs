@@ -7,7 +7,6 @@ Banner
 		Teams
 		Players
 	Overview
-	Message Boards
 	Profile
 		Performance
 		Player since
