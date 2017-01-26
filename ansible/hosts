@@ -29,6 +29,19 @@ team_number=1
 192.168.164.134
 192.168.164.135
 
+[linux]
+192.168.164.150
+
+[linux:children]
+foreman
+
+[linux:vars]
+ansible_connection=ssh
+ansible_users=root
+ansible_password=netsys
+ansible_port=22
+
+
 [windows:children]
 domain-controllers
 windows-clients
@@ -47,3 +60,7 @@ ansible_port=5985
 [windows-clients]
 192.168.164.132	domainname=team0.ccdc  domaincontrollerip="192.168.164.134"  username="team0\admin"  password=netsys
 192.168.164.133	domainname=team1.ccdc  domaincontrollerip="192.168.164.135"  username="team1\admin"  password=netsys
+
+[foreman]
+#192.168.164.150 domainname=team0.ccdc domaincontrollerip="192.168.164.134" basedn="dc=team0,dc=ccdc" teamname=team0
+192.168.164.151 domainname=team1.ccdc domaincontrollerip="192.168.164.135" basedn="dc=team1,dc=ccdc" teamname=team1
