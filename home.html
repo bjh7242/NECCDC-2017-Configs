@@ -6,16 +6,27 @@
 	<body>
 		<div id="header">
 			<img id="logo" src="images/logo.png" />
+			<div id="menu">
+				<ul class="navlinks">
+					<li class="navlink"><div id="test"></div></li>
+					<li class="navlink"><a href="#">Home</a></li>
+					<li class="navlink"><a href="#">My Fantasy</a></li>
+					<li class="navlink"><a href="#">Settings</a></li>
+					<li class="navlink"><a href="#">About</a></li>
+				</ul>
+			</div>
 			<div id="signin">
-				<div class="block">
-					<label>Email</label>
-					<input id="username" type="text">
-				</div>
-				<div class="block">
-					<label>Password:</label>
-					<input id="password" type="text">
-				</div>
-				Log In
+				<table cellspacing="5">
+					<tr>
+						<td><label>Email</label></td>
+						<td><label>Password:</label></td>
+					</tr>
+					<tr>
+						<td><input id="username" type="text"></td>
+						<td><input id="password" type="text"></td>
+						<td><label>Log In<label></td>
+					</tr>
+				</table>	
 			</div>
 		</div>
 	</body>

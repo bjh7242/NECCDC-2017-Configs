@@ -15,10 +15,54 @@
   top: 0px;
   width: 133px;
   height: 133px;
-  z-index: 3;
+  z-index: 4;
 }
 
-.block label { 
+#signin  {
+  position: relative;
+  float: right;
+  top: -150px;
   display: block;
-  text-align: left;
+  padding-bottom: 4px;
+  z-index: 4
+}
+
+#signin  label{ 
+  color: white;
+}
+
+#menu {
+	position: relative;
+	top: -80px;
+    background-image: -webkit-linear-gradient(top, #0072CE, #003087);
+	min-width: 600px;
+	z-index: 2;
+}
+.navlinks {
+	text-transform: uppercase;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+.navlink {
+    float: left;
+}
+.navlink #test {
+    display: block;
+    padding: 14px 80px;
+}
+
+.navlink a:hover {
+    background-color: #111;
+}
+
+.navlink a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
