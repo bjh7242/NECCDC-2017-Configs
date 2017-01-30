@@ -1,0 +1,24 @@
+#header {
+  background-image: url("images/header.png");
+  background-repeat: repeat-x;
+  position: absolute;
+  left: -0px;
+  top: -0px;
+  width: 100%;
+  height: 108px;
+  z-index: 2;
+}
+
+#logo {
+  position: relative;
+  left: 22px;
+  top: 0px;
+  width: 133px;
+  height: 133px;
+  z-index: 3;
+}
+
+.block label { 
+  display: block;
+  text-align: left;
+}
