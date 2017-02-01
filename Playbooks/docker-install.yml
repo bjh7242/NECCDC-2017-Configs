@@ -2,8 +2,8 @@
 - hosts: docker_web_hosts
 
   tasks:
-      - name: Installing Docker Stack (Tested on Ubuntu 1604).
-        package: name=docker.io
+      - name: Installing Docker Stack 
+        shell: curl -fsSL https://get.docker.com/ | sh
         become: yes
         become_user: root
         tags: install_docker
@@ -19,10 +19,10 @@
 
 - hosts: shipyard_nodes
   vars:
-    shipyard_server: ec2-54-82-251-167.compute-1.amazonaws.com # Each team requires 1 shipyard instance.
+    shipyard_server: ec2-52-200-156-245.compute-1.amazonaws.com
 
   tasks:
-      - name: Install Shipyard
+      - name: Install Shipyard (Node)
         command: curl -sSL https://shipyard-project.com/deploy | ACTION=node DISCOVERY=etcd://{{ shipyard_server }}:4001 bash -s 
         become: yes
         become_user: root
