@@ -1,0 +1,15 @@
+- hosts: esxi-hosts
+  gather_facts: no
+
+  tasks:
+      - name: Add file for VNC firewall rules
+        copy:
+          src: conf/vnc.xml
+          dest: /etc/vmware/firewall/vnc.xml
+          owner: root
+          group: root
+          mode: 0444
+
+      - name: Reset firewall
+        raw: esxcli network firewall refresh
+

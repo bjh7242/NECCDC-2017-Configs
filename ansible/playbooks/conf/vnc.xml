@@ -1,0 +1,15 @@
+<ConfigRoot>
+<service id='0032'>
+ <id>VNC</id>
+ <rule id = '0000'>
+  <direction>inbound</direction>
+  <protocol>tcp</protocol>
+  <porttype>dst</porttype>
+  <port>
+   <begin>5901</begin>
+   <end>5964</end>
+  </port>
+ </rule>
+ <enabled>true</enabled>
+</service>
+</ConfigRoot>
