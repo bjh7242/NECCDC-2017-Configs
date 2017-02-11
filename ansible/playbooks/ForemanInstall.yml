@@ -10,25 +10,34 @@
         raw: yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
       - name: Add Foreman Repo
-        raw: yum -y install https://yum.theforeman.org/releases/1.13/el7/x86_64/foreman-release.rpm
+        raw: yum -y install http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
 
       - name: Change Hostname
-        raw: hostname foreman.{{ domainname }}
+        raw: hostname foreman.{{ domainname }} && echo "foreman.{{ domainname }}" > /etc/hostname
+
+      - name: Update hosts file
+        raw: sed -i 's/127.0.0.1\s*localhost localhost.localdomain localhost4 localhost4.localdomain4/127.0.0.1   foreman.{{ domainname }} localhost localhost.localdomain localhost4 localhost4.localdomain4/' /etc/hosts
 
       - name: Download Foreman Installer
-        raw: yum -y install foreman-installer
+        raw: yum -y install foreman-installer 
 
       - name: Install Foreman
-        raw: foreman-installer
+        raw: foreman-installer --enable-foreman-compute-vmware
 
       - name: Integrate Foreman with team AD/LDAP server
-        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname "givenName" --attr-lastname "sn" --attr-login "SamAccountName" --attr-mail "mail" --server-type "active_directory" --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account "{{ teamname }}\\administrator" --account-password "Netsys1!"
+        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname "givenName" --attr-lastname "sn" --attr-login "SamAccountName" --attr-mail "mail" --server-type "active_directory" --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account "{{ netbiosname }}\\administrator" --account-password "Netsys1!"
+
+#      - name: Update Foreman admin password to Netsys1!
+#        raw: hammer user update --login admin --password 'Netsys1!'
 
       - name: Fix Hammer role filter permissions for the Default role
         raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role "Default role" --permission-ids $i; done
 
-      - name: Update admin password to Netsys1!
-        raw: hammer user update --login admin --password 'Netsys1!'
+#      - name: Install foreman-vmware
+#        raw: yum -y install foreman-vmware
+
+      - name: Create vCenter Compute Resource
+        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password 'Netsys1!'
 
       - name: "Manually check the useraccount creation at login box for LDAP auth"
         debug:
