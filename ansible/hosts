@@ -47,5 +47,8 @@ ansible_port=5985
 10.0.1.10	domainname=fantastsports1.trade  domaincontrollerip="10.0.1.40"  username="fantasysports1\admin"  password=netsys
 
 [foreman]
-10.1.0.37 domainname=fantasysports0.trade domaincontrollerip="10.0.0.40" basedn="dc=fantasysports0,dc=trade" netbiosname=fantasysports0
-#10.1.1.37 domainname=fantasysports1.trade domaincontrollerip="10.0.1.40" basedn="dc=fantasysports1,dc=trade" netbiosname=fantasysports1
+10.1.0.37 domainname=fantasysports0.trade domaincontrollerip="10.0.0.40" basedn="dc=fantasysports0,dc=trade" netbiosname=fantasysports0 teamnumber=0
+#10.1.1.37 domainname=fantasysports1.trade domaincontrollerip="10.0.1.40" basedn="dc=fantasysports1,dc=trade" netbiosname=fantasysports1 teamnumber=1
+
+[esxi-hosts]
+10.0.0.30 ansible_password=Netsys1! ansible_user=root ansible_port=22 ansible_connection=ssh
