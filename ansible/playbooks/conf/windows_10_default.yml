@@ -1,0 +1,44 @@
+<%-
+  powershell = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Unrestricted -NoLogo -NoProfile'
+-%>
+---
+identity:
+  Sysprep:
+    guiRunOnce:
+      commandList:
+        - <%= powershell %> -Command "invoke-webrequest -Uri https://raw.githubusercontent.com/bechtoldt/puppet-bootstrap/master/windows.ps1 -Outfile c:\puppet-windows.ps1"
+        - <%= powershell %> -Command "& \'.\windows.ps1 -PuppetVersion 3.7.5\'"
+        - <%= powershell %> -Command "invoke-webrequest -Uri <%= foreman_url("built") %>"
+    guiUnattended:
+      autoLogon: true
+      autoLogonCount: 1
+      password:
+        plainText: true
+        value: 'Netsys1!'
+      timeZone: 110
+    identification:
+      joinWorkgroup: 'WORKGROUP'
+    licenseFilePrintData:
+      autoMode: 'perSeat'
+    userData:
+      computerName: <%= @host.shortname %>
+      fullName: 'admin2'
+      orgName: 'fantasysports'
+      productId: 'D2N9P-3P6X9-2R39C-7RTCD-MDVJX'
+nicSettingMap:
+  - adapter:
+      dnsDomain: <%= @host.domain %>
+      dnsServerList:
+        - <%= @host.subnet.dns_primary %>
+      gateway:
+        - <%= @host.subnet.gateway %>
+      ip: <%= @host.ip %>
+      subnetMask: <%= @host.subnet.mask %>
+globalIPSettings:
+  dnsServerList:
+    - <%= @host.subnet.dns_primary %>
+  dnsSuffixList:
+    - <%= @host.domain %>
+options:
+  changeSID: true
+  deleteAccounts: false
