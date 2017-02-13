@@ -30,6 +30,12 @@
       - name: Install Foreman
         raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password 'Netsys1!'
 
+      - name: Disable Websockets SSL for Foreman
+        raw: "sed -i 's/websockets_encrypt: on/websockets_encrypt: off/' /etc/foreman/settings.yaml"
+
+      - name: Restart Foreman
+        raw: service foreman restart
+
       - name: Integrate Foreman with team AD/LDAP server
         raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password 'Netsys1!'
 
