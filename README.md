@@ -22,12 +22,6 @@ docker import Docker_www_ccdc.tar.gz
 docker run -v /absolute/path/:/internal/docker/directory/ container:tag /executable/
 ```
 
-###  What is in DO_DNS?
-A series of janky Python/Bash scripts that take in input
-from other DevOps tools to update DNS records.
-I **really** need to clean up the code.
-
-
 <br />
 ### TODO
 * Web admin panel for docker administration.

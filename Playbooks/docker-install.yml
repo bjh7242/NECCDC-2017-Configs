@@ -2,7 +2,7 @@
 - hosts: docker_web_hosts
 
   tasks:
-      - name: Installing Docker Stack 
+      - name: Installing Latest Docker Stack.
         shell: curl -fsSL https://get.docker.com/ | sh
         become: yes
         become_user: root

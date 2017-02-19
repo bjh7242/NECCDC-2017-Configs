@@ -1,5 +1,0 @@
-#!/bin/bash
-TOKEN=80aa577ab869775aa38d2b5f83252238a75b1441cf6e08a053f36932204c02e8
-DOMAIN="fantasysports.trade"
-RECORDID=$1
-curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" "https://api.digitalocean.com/v2/domains/example.com/records/$RECORDID"
