@@ -22,6 +22,12 @@ docker import Docker_www_ccdc.tar.gz
 docker run -v /absolute/path/:/internal/docker/directory/ container:tag /executable/
 ```
 
+### How to build docker container.
+
+```
+docker build -t ccdc\www .
+```
+
 <br />
 ### TODO
 * Web admin panel for docker administration.
