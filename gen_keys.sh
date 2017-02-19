@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: JStroud
+# Purpose: Generate SSH keys for AWS boxes
 
 teams=(1 2 3 4 5 6 7 8 9 10)
 
