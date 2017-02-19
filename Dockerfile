@@ -2,7 +2,7 @@ FROM ubuntu
 MAINTAINER NECCDC
 EXPOSE 23 21 80 443 3306 8080
 RUN apt-get update -y
-RUN apt-get install git vim nginx openssh-server mysql-client net-tools python2 -y
+RUN apt-get install git vim nginx openssh-server mysql-client net-tools python2.7 -y
 
 # Python Requirements.
 RUN apt-get install python-pip -y
