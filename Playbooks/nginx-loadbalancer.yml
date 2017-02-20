@@ -2,8 +2,15 @@
 - hosts: load_balancer
 
   tasks:
+
+      - name: Update Portge
+        shell: emerge -a sync
+        become: yes
+        become_user: root
+        tags: init_gentoo 
+
       - name: Install Nginx
-        package: nginx state: latest
+        package: nginx state:latest
         become: yes
         become_user: root
         tags: install_nginx
