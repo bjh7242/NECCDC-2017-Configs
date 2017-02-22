@@ -60,3 +60,18 @@
 
 [swarm_nodes_team_10]
 #
+
+[loadbalancers] # Gentoo boxes lol.
+ec2-107-20-53-231.compute-1.amazonaws.com
+ec2-54-221-136-10.compute-1.amazonaws.com
+ec2-52-91-126-201.compute-1.amazonaws.com
+ec2-52-86-90-235.compute-1.amazonaws.com
+ec2-107-22-62-5.compute-1.amazonaws.com
+ec2-54-163-176-189.compute-1.amazonaws.com
+ec2-54-146-110-123.compute-1.amazonaws.com
+ec2-52-87-175-213.compute-1.amazonaws.com
+ec2-54-144-82-182.compute-1.amazonaws.com
+ec2-52-54-80-14.compute-1.amazonaws.com
+
+[test]
+ec2-52-201-115-67.compute-1.amazonaws.com
