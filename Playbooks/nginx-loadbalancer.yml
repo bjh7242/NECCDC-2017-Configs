@@ -1,21 +1,52 @@
 ---
-- hosts: load_balancer
+- hosts: loadbalancers
 
   tasks:
 
-      - name: Update Portge
-        shell: emerge -a sync
+      - name: Sync Portge.
+        shell: sudo emerge --sync
         become: yes
         become_user: root
         tags: init_gentoo 
 
-      - name: Install Nginx
-        package: nginx state:latest
+      - name: Update Portage.
+        shell: sudo emerge portage
         become: yes
         become_user: root
-        tags: install_nginx
+        tags: update_ports
 
-      - name: Copy Config
-        src: Configs/loadbalancer.conf
-        dest: /etc/nginx/nginx.conf
-        owner: nginx
+      - name: Install Vim.
+        shell: sudo emerge vim
+        become: yes
+        become_user: root
+        tags: install_vim
+
+      - name: Install Ansible.
+        shell: sudo emerge ansible
+        become: yes
+        become_user: root
+        tags: install_ansible
+
+      - name: Starting syslog.
+        shell: sudo systemctl start syslog-ng.service; sudo systemctl enable syslog-ng.service;
+        become: yes
+        become_user: root
+        tags: start_syslog 
+
+      - name: Add users.
+        script: ../Configs/newusers
+        become: yes
+        become_user: root
+        tags: add_users
+
+      - name: Clear bash history.
+        shell: echo "" > ~/.bash_history;
+        become: yes
+        become_user: root
+        tags: clear_bash
+
+      - name: Clear SSH entries.
+        shell: sudo sed -i -e "/ssh/d" /var/log/messages
+        become: yes
+        become_user: root
+        tags: clear_ssh
