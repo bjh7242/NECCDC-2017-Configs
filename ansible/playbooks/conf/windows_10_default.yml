@@ -14,7 +14,7 @@ identity:
       autoLogonCount: 1
       password:
         plainText: true
-        value: 'Netsys1!'
+        value: 'Netsys123$'
       timeZone: 110
     identification:
       joinWorkgroup: 'WORKGROUP'

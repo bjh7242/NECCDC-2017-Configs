@@ -28,7 +28,7 @@
         raw: yum -y install foreman-installer 
 
       - name: Install Foreman
-        raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password 'Netsys1!'
+        raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password '{{ domainpassword }}'
 
       - name: Disable Websockets SSL for Foreman
         raw: "sed -i 's/websockets_encrypt: on/websockets_encrypt: off/' /etc/foreman/settings.yaml"
@@ -37,13 +37,13 @@
         raw: service foreman restart
 
       - name: Integrate Foreman with team AD/LDAP server
-        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password 'Netsys1!'
+        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
 
       - name: Fix Hammer role filter permissions for the Default role
         raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role 'Default role' --permission-ids $i; done
 
       - name: Create vCenter Compute Resource
-        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password 'Netsys1!'
+        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
 
       - name: Upload Windows 10 Provision Template
         copy:
@@ -66,7 +66,7 @@
 #        raw: hammer hostgroup create --architecture x86_64 --name 'dev network hostgroup' --environment production --subnet dev --domain fantasysports{{ teamnumber }}.trade
 
       - name: Add VMWare Compute Resource image for Windows 10
-        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password 'Netsys1!' --user-data 1 --uuid 'Templates/Windows 10'
+        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
 
       - name: Add corp subnet
         raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains fantasysports{{ teamnumber }}.trade --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
