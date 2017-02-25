@@ -54,7 +54,7 @@ ansible_port=5985
 
 [windows-clients]
 10.0.0.10	domainname=f-sports0.co  domaincontrollerip="10.0.0.40"  username="f-sports0\admin"  password=Netsys123$
-10.0.1.10	domainname=fantastsports1.co  domaincontrollerip="10.0.1.40"  username="f-sports1\admin"  password=Netsys123$
+10.0.1.10	domainname=f-sports1.co  domaincontrollerip="10.0.1.40"  username="f-sports1\admin"  password=Netsys123$
 
 [foreman]
 10.1.0.37 domainname=f-sports0.co domaincontrollerip="10.0.0.40" basedn="dc=f-sports0,dc=co" netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
