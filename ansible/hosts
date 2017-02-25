@@ -16,12 +16,13 @@ windows,linux,domain-controllers,windows-clients,foreman
 
 [linux:children]
 foreman
+esxi-hosts
 
 
 [linux:vars]
 ansible_connection=ssh
 ansible_users=root
-ansible_password=netsys
+ansible_password=Netsys123$
 ansible_port=22
 
 
@@ -32,23 +33,43 @@ windows-clients
 
 [windows:vars]
 ansible_connection=winrm
-ansible_user=admin
-ansible_password=netsys
+ansible_user=Administrator
+ansible_password=Netsys123$
 ansible_port=5985
 
 
 [domain-controllers]
-10.0.0.40	domainname=fantasysports0.trade  netbiosname=FANTASYSPORTS0  adbackuppass=Netsys1231$  team_number=0
-#10.0.1.40	domainname=fantasysports1.trade  netbiosname=FANTASYSPORTS1  adbackuppass=Netsys1232$  team_number=1
+10.0.0.40	domainname=f-sports0.co  netbiosname=F-SPORTS0  adbackuppass=Netsys1231$  team_number=0
+10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
+#10.0.2.40	domainname=f-sports2.co  netbiosname=F-SPORTS2  adbackuppass=Netsys1233$  team_number=2
+#10.0.3.40	domainname=f-sports3.co  netbiosname=F-SPORTS3  adbackuppass=Netsys1234$  team_number=3
+#10.0.4.40	domainname=f-sports4.co  netbiosname=F-SPORTS4  adbackuppass=Netsys1235$  team_number=4
+#10.0.5.40	domainname=f-sports5.co  netbiosname=F-SPORTS5  adbackuppass=Netsys1236$  team_number=5
+#10.0.6.40	domainname=f-sports6.co  netbiosname=F-SPORTS6  adbackuppass=Netsys1237$  team_number=6
+#10.0.7.40	domainname=f-sports7.co  netbiosname=F-SPORTS7  adbackuppass=Netsys1238$  team_number=7
+#10.0.8.40	domainname=f-sports8.co  netbiosname=F-SPORTS8  adbackuppass=Netsys1239$  team_number=8
+#10.0.9.40	domainname=f-sports9.co  netbiosname=F-SPORTS9  adbackuppass=Netsys12310$  team_number=9
+#10.0.10.40	domainname=f-sports10.co  netbiosname=F-SPORTS10  adbackuppass=Netsys12311$  team_number=10
 
 
 [windows-clients]
-10.0.0.10	domainname=fantasysports0.trade  domaincontrollerip="10.0.0.40"  username="fantasysports0\admin"  password=netsys
-10.0.1.10	domainname=fantastsports1.trade  domaincontrollerip="10.0.1.40"  username="fantasysports1\admin"  password=netsys
+10.0.0.10	domainname=f-sports0.co  domaincontrollerip="10.0.0.40"  username="f-sports0\admin"  password=Netsys123$
+10.0.1.10	domainname=fantastsports1.co  domaincontrollerip="10.0.1.40"  username="f-sports1\admin"  password=Netsys123$
 
 [foreman]
-10.1.0.37 domainname=fantasysports0.trade domaincontrollerip="10.0.0.40" basedn="dc=fantasysports0,dc=trade" netbiosname=fantasysports0 teamnumber=0  domainpassword='Netsys123$'
-#10.1.1.37 domainname=fantasysports1.trade domaincontrollerip="10.0.1.40" basedn="dc=fantasysports1,dc=trade" netbiosname=fantasysports1 teamnumber=1  domainpassword='Netsys123$'
+10.1.0.37 domainname=f-sports0.co domaincontrollerip="10.0.0.40" basedn="dc=f-sports0,dc=co" netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
+#10.1.1.37 domainname=f-sports1.co domaincontrollerip="10.0.1.40" basedn="dc=f-sports1,dc=co" netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
 
 [esxi-hosts]
 10.0.0.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+10.0.1.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.2.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.3.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.4.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.5.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.6.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.7.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.8.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.9.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+#10.0.10.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+

@@ -19,7 +19,7 @@ Import-Csv $FileName | % {
         $CreatedRevZone = $true
     }
 
-    $fqdn = $_.Name.replace("fantasysportsX","fantasysports$TeamNumber")
+    $fqdn = $_.Name.replace("f-sportsX","f-sports$TeamNumber")
     $name = $fqdn.split(".")[0]
     $domain_split = $fqdn.split(".")
     $domain = ($domain_split[1..($domain_split.length -1)] -join ".")
