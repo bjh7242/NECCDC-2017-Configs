@@ -22,6 +22,10 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 RUN echo "container-www" > /etc/hostname
 
+
+### Start Nginx
+RUN service nginx start
+
 ### Add vulnerabilities.
 
 ### To mount host dir into container run cmd below:
