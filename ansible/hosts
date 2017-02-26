@@ -21,7 +21,7 @@ esxi-hosts
 
 [linux:vars]
 ansible_connection=ssh
-ansible_users=root
+ansible_user=root
 ansible_password=Netsys123$
 ansible_port=22
 
@@ -53,23 +53,35 @@ ansible_port=5985
 
 
 [windows-clients]
-10.0.0.10	domainname=f-sports0.co  domaincontrollerip="10.0.0.40"  username="f-sports0\admin"  password=Netsys123$
-10.0.1.10	domainname=f-sports1.co  domaincontrollerip="10.0.1.40"  username="f-sports1\admin"  password=Netsys123$
+10.0.0.10	domainname=f-sports0.co  domaincontrollerip='10.0.0.40'  username='f-sports0\admin'  password=Netsys123$
+10.0.1.10	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+
 
 [foreman]
-10.1.0.37 domainname=f-sports0.co domaincontrollerip="10.0.0.40" basedn="dc=f-sports0,dc=co" netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
-#10.1.1.37 domainname=f-sports1.co domaincontrollerip="10.0.1.40" basedn="dc=f-sports1,dc=co" netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
+10.0.0.37 domainname=f-sports0.co domaincontrollerip='10.0.0.40' basedn='dc=f-sports0,dc=co' netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
+10.0.1.37 domainname=f-sports1.co domaincontrollerip='10.0.1.40' basedn='dc=f-sports1,dc=co' netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
+#10.0.2.37 domainname=f-sports2.co domaincontrollerip='10.0.2.40' basedn='dc=f-sports2,dc=co' netbiosname=f-sports2 teamnumber=2  domainpassword='Netsys123$'
+#10.0.3.37 domainname=f-sports3.co domaincontrollerip='10.0.3.40' basedn='dc=f-sports3,dc=co' netbiosname=f-sports3 teamnumber=3  domainpassword='Netsys123$'
+#10.0.4.37 domainname=f-sports4.co domaincontrollerip='10.0.4.40' basedn='dc=f-sports4,dc=co' netbiosname=f-sports4 teamnumber=4  domainpassword='Netsys123$'
+#10.0.5.37 domainname=f-sports5.co domaincontrollerip='10.0.5.40' basedn='dc=f-sports5,dc=co' netbiosname=f-sports5 teamnumber=5  domainpassword='Netsys123$'
+#10.0.6.37 domainname=f-sports6.co domaincontrollerip='10.0.6.40' basedn='dc=f-sports6,dc=co' netbiosname=f-sports6 teamnumber=6  domainpassword='Netsys123$'
+#10.0.7.37 domainname=f-sports7.co domaincontrollerip='10.0.7.40' basedn='dc=f-sports7,dc=co' netbiosname=f-sports7 teamnumber=7  domainpassword='Netsys123$'
+#10.0.8.37 domainname=f-sports8.co domaincontrollerip='10.0.8.40' basedn='dc=f-sports8,dc=co' netbiosname=f-sports8 teamnumber=8  domainpassword='Netsys123$'
+#10.0.9.37 domainname=f-sports9.co domaincontrollerip='10.0.9.40' basedn='dc=f-sports9,dc=co' netbiosname=f-sports9 teamnumber=9  domainpassword='Netsys123$'
+#10.0.10.37 domainname=f-sports10.co domaincontrollerip='10.0.10.40' basedn='dc=f-sports10,dc=co' netbiosname=f-sports10 teamnumber=10  domainpassword='Netsys123$'
+
 
 [esxi-hosts]
-10.0.0.30 domaincontrollerip=10.0.0.40
+#10.0.0.30 domaincontrollerip=10.0.0.40
 10.0.1.30 domaincontrollerip=10.0.1.40
-#10.0.2.30 domaincontrollerip=10.0.1.40
-#10.0.3.30 domaincontrollerip=10.0.1.40
-#10.0.4.30 domaincontrollerip=10.0.1.40
-#10.0.5.30 domaincontrollerip=10.0.1.40
-#10.0.6.30 domaincontrollerip=10.0.1.40
-#10.0.7.30 domaincontrollerip=10.0.1.40
-#10.0.8.30 domaincontrollerip=10.0.1.40
-#10.0.9.30 domaincontrollerip=10.0.1.40
-#10.0.10.30 domaincontrollerip=10.0.1.40
+#10.0.2.30 domaincontrollerip=10.0.2.40
+#10.0.3.30 domaincontrollerip=10.0.3.40
+#10.0.4.30 domaincontrollerip=10.0.4.40
+#10.0.5.30 domaincontrollerip=10.0.5.40
+#10.0.6.30 domaincontrollerip=10.0.6.40
+#10.0.7.30 domaincontrollerip=10.0.7.40
+#10.0.8.30 domaincontrollerip=10.0.8.40
+#10.0.9.30 domaincontrollerip=10.0.9.40
+#10.0.10.30 domaincontrollerip=10.0.10.40
+
 

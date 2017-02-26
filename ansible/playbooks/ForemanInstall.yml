@@ -3,14 +3,12 @@
   strategy: debug
 
   tasks:
-      - name: Add Puppetlabs Repo
-        raw: yum -y install https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-
-      - name: Install EPEL
-        raw: yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-
-      - name: Add Foreman Repo
-        raw: yum -y install http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
+      - name: Add EPEL, Foreman, and Puppetlabs Repos
+        yum: pkg={{ item }} state=installed
+        with_items: 
+          - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+          - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+          - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
 
       - name: Change Hostname
         raw: hostname foreman.{{ domainname }} && echo 'foreman.{{ domainname }}' > /etc/hostname
@@ -21,11 +19,13 @@
       - name: Disable selinux (reboot required to fully disable)
         raw: sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux && setenforce 0
 
-      - name: Installing ruby dev headers, gcc, and make
-        raw: yum -y install ruby-devel gcc make
-
-      - name: Download Foreman Installer
-        raw: yum -y install foreman-installer 
+      - name: Installing ruby dev headers, gcc, make, and foreman-installer
+        yum: pkg={{ item }} state=installed
+        with_items:
+          - ruby-devel
+          - gcc
+          - make
+          - foreman-installer
 
       - name: Install Foreman
         raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password '{{ domainpassword }}'
@@ -34,7 +34,9 @@
         raw: "sed -i 's/websockets_encrypt: on/websockets_encrypt: off/' /etc/foreman/settings.yaml"
 
       - name: Restart Foreman
-        raw: service foreman restart
+        systemd:
+          state: restarted
+          name: foreman
 
       - name: Integrate Foreman with team AD/LDAP server
         raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
@@ -59,23 +61,23 @@
       - name: Set Windows 10 default provisioning template
         raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep windows_10_default | awk '{ print $1 }'`
 
-#      - name: Create corp hostgroup
-#        raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain fantasysports{{ teamnumber }}.trade
-#
-#      - name: Create corp hostgroup
-#        raw: hammer hostgroup create --architecture x86_64 --name 'dev network hostgroup' --environment production --subnet dev --domain fantasysports{{ teamnumber }}.trade
+      - name: Create corp hostgroup
+        raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co
+
+      - name: Create corp hostgroup
+        raw: hammer hostgroup create --architecture x86_64 --name 'dev network hostgroup' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co
 
       - name: Add VMWare Compute Resource image for Windows 10
         raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
 
       - name: Add corp subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains fantasysports{{ teamnumber }}.trade --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Add dev subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains fantasysports{{ teamnumber }}.trade --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Delete Provision templates from disk
-        raw: rm /tmp/windows_10_default.yml
+        file: path='/tmp/windows_10_default.yml' state=absent
 
       - name: 'Manually check the useraccount creation at login box for LDAP auth'
         debug:
