@@ -61,15 +61,15 @@ ansible_port=5985
 #10.1.1.37 domainname=f-sports1.co domaincontrollerip="10.0.1.40" basedn="dc=f-sports1,dc=co" netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
 
 [esxi-hosts]
-10.0.0.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-10.0.1.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.2.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.3.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.4.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.5.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.6.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.7.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.8.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.9.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
-#10.0.10.30 ansible_password=Netsys123$ ansible_user=root ansible_port=22 ansible_connection=ssh
+10.0.0.30 domaincontrollerip=10.0.0.40
+10.0.1.30 domaincontrollerip=10.0.1.40
+#10.0.2.30 domaincontrollerip=10.0.1.40
+#10.0.3.30 domaincontrollerip=10.0.1.40
+#10.0.4.30 domaincontrollerip=10.0.1.40
+#10.0.5.30 domaincontrollerip=10.0.1.40
+#10.0.6.30 domaincontrollerip=10.0.1.40
+#10.0.7.30 domaincontrollerip=10.0.1.40
+#10.0.8.30 domaincontrollerip=10.0.1.40
+#10.0.9.30 domaincontrollerip=10.0.1.40
+#10.0.10.30 domaincontrollerip=10.0.1.40
 
