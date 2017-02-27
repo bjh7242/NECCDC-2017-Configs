@@ -4,21 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<div id="header">
-			<img id="logo" src="images/logo.png" />
-			<div id="menu">
-				<ul class="navlinks">
-					<li class="navlink"><div id="spacer"></div></li>
-					<li class="navlink"><a href="#">Home</a></li>
-					<li class="navlink"><a href="#">My Fantasy</a></li>
-					<li class="navlink"><a href="#">Settings</a></li>
-					<li class="navlink"><a href="#">About</a></li>
-				</ul>
-			</div>
-			<div id="signin">
-				<button href="#" id="signin-button">Sign In</button>
-			</div>
-		</div>
+		<?php include("header.html"); ?>
 		<div id="content">
 			<table>
 			<tr>

@@ -85,13 +85,16 @@
 #content {
 	position: relative;
 	margin: auto;
+	display: block;
 	width: 75%;
-	top: 25%;
+	top: 20%;
 	border: 1px solid black;
 	padding: 10px;
 	background-color: #f7f7f7;
 	min-height: 100px;
-	overflow: hidden;	
+	min-width: 900px;
+	overflow: hidden;
+	text-align: center;
 }
 
 #copyright {
@@ -106,6 +109,7 @@
     position: relative;
 	width: 80%;
 	min-height: 00px;
+	min-width: 200px;
     overflow: hidden;	
 	background-color: white;
 	box-shadow: 2px 2px 2px #888888;
