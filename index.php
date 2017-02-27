@@ -1,8 +1,5 @@
 <html>
-	<head>
-		<title>Fan.Tasy</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
+	<?php include("includes.html"); ?>
 	<body>
 		<?php 
 		if(!isset($_GET['page'])){

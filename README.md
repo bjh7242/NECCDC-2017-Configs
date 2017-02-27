@@ -1,2 +1,1 @@
-# NECCDC-2017-Configs
-Configs for NECCDC 2017
+Welcome to our site!
