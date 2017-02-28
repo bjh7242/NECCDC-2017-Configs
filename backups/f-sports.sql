@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 28, 2017 at 12:46 AM
+-- Generation Time: Feb 28, 2017 at 01:38 AM
 -- Server version: 5.7.15-log
 -- PHP Version: 7.0.11
 
@@ -23,6 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `pid` int(11) NOT NULL,
+  `post` text NOT NULL,
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`pid`, `post`, `title`) VALUES
+(1, 'Congratulations to the 2015 Champion... The Magical Monkies. The magicians had a great run but couldn\'t muster enough in week 20. It was just for a trophy anyway. Since these two teams were first place anyway.', 'The Champ is Here!!!!');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -36,7 +55,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session`, `uid`) VALUES
-('35e810a283665637891f57794562b22eb892a8fd', 1);
+('a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 1);
 
 -- --------------------------------------------------------
 
@@ -63,6 +82,12 @@ INSERT INTO `users` (`uid`, `username`, `password`, `email`) VALUES
 --
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`pid`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -79,6 +104,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --

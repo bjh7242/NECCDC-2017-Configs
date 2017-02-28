@@ -4,7 +4,7 @@
 	<body>
 		<?php 
 		if(!isset($_GET['page'])){
-			$site = "home.html";
+			$site = "home.php";
 		}else{
 			$site = $_GET['page'];
 		}

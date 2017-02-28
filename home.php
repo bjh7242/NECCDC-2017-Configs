@@ -1,11 +1,24 @@
+<?php
+include_once('common.php');
+include_once('session');
+$sql = "SELECT * FROM posts ORDER BY pid DESC limit 1";
+if($result = $link->query($sql)){
+	$row = $result->fetch_array(MYSQLI_ASSOC);
+	$title = $row['title'];
+	$post = $row['post'];
+}else{
+	$title = "Title N/A";
+	$post = "Error: " . $link->error;
+}
+?>
 <div id="content">
 	<table>
 	<tr>
 	<td>
 	<div id="news" class="box">
 		<div id="news-header"><p class="headertext">Sports News</p></div>
-		<h1>The Champ is Here!!!!</h1>
-		Congradulations to the 2015 Champsion... The Magical Monkies. The magicians had a great run but couldn't muster enough in week 20. It was just for a trophey anyway. Since these two teams were first place anyway.
+		<h1><?php echo ucfirst($title); ?></h1>
+		<?php echo ucfirst($post); ?>
 	</div>
 	</td>
 	<td>
