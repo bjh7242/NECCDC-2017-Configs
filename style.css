@@ -22,11 +22,17 @@
 	position: relative;
 	float: right;
 	top: -120px;
+	color: white;
+	text-align:center;
 	display: block;
 	padding-bottom: 4px;
 	padding-right: 10px;
 	min-width: 36px;
 	z-index: 4
+}
+
+#signin a {
+	color: white;
 }
 
 #signin-button  {

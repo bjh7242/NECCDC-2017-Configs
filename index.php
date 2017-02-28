@@ -1,4 +1,5 @@
 <html>
+	<?php include_once("session.php"); ?>
 	<?php include("includes.html"); ?>
 	<body>
 		<?php 

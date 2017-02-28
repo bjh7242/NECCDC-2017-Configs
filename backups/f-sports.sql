@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 27, 2017 at 11:26 PM
+-- Generation Time: Feb 28, 2017 at 12:46 AM
 -- Server version: 5.7.15-log
 -- PHP Version: 7.0.11
 
@@ -23,6 +23,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session` varchar(255) NOT NULL DEFAULT 'session',
+  `uid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`session`, `uid`) VALUES
+('35e810a283665637891f57794562b22eb892a8fd', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -34,8 +52,22 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`uid`, `username`, `password`, `email`) VALUES
+(1, 'test', 'test', 'none@none.com');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`uid`),
+  ADD UNIQUE KEY `uid` (`uid`);
 
 --
 -- Indexes for table `users`
@@ -51,7 +83,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

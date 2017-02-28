@@ -10,6 +10,12 @@
 		</ul>
 	</div>
 	<div id="signin">
-		<a href="index.php?page=signin.html"><button id="signin-button">Sign In</button></a>
+		<?php 
+		if(isset($session['logged_in']) and $session['logged_in'] == True){
+			echo 'Welcome ' . ucfirst($session['username']) ." - <a href='signout.php'>Sign Out</a>";
+		}else{
+			echo '<a href="index.php?page=signin.html"><button id="signin-button">Sign In</button></a>';
+		}
+		?>
 	</div>
 </div>
