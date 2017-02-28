@@ -35,6 +35,21 @@
 	color: white;
 }
 
+#update_box {
+	position: relative;
+	left: 40%;
+	padding-top: 10px;
+}
+
+#update_box label, input{
+	display: block;
+}
+
+#update_box label{
+	text-align:left;
+	margin-bottom: 20px;
+}
+
 #signin-button  {
     white-space: nowrap;
     text-transform: uppercase;
