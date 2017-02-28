@@ -29,6 +29,18 @@ docker build -t ccdc\www .
 ```
 
 <br />
+
+### Vagrant Playbook testing
+* Change VagrantFile to be provisioned via Ansible.
+
+```
+config.vm.provision "ansible" do |ansible|
+    ansible.verbose = "v"
+    ansible.playbook = "YOUR_PLAYBOOK_HERE.yml"
+end
+```
+
+
+
 ### TODO
-* Web admin panel for docker administration.
 * Get custom webapp from Chaim to put in container.
