@@ -1,4 +1,12 @@
 <head>
-	<title>F-Sports Baseball</title>
+	<title>
+	<?php 
+		if(isset($_GET['title'])){
+			echo $_GET['title'];
+		}else{
+			echo "F-Sports Baseball";
+		}
+	?>
+	</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
