@@ -3,3 +3,4 @@ inventory.yml
 www/*
 *.retry
 *.txt
+test.yml
