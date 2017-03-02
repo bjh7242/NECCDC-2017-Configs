@@ -3,63 +3,72 @@
   strategy: debug
 
   tasks:
-      - name: Add EPEL, Foreman, and Puppetlabs Repos
-        yum: pkg={{ item }} state=installed
-        with_items: 
-          - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-          - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-          - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
+#      - name: Add EPEL, Foreman, and Puppetlabs Repos
+#        yum: pkg={{ item }} state=installed
+#        with_items: 
+#          - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+#          - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+#          - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
+#
+#      - name: Change Hostname
+#        raw: hostname foreman.{{ domainname }} && echo 'foreman.{{ domainname }}' > /etc/hostname
+#
+#      - name: Update hosts file
+#        raw: sed -i 's/127.0.0.1\s*localhost localhost.localdomain localhost4 localhost4.localdomain4/127.0.0.1   foreman.{{ domainname }} localhost localhost.localdomain localhost4 localhost4.localdomain4/' /etc/hosts
+#
+#      - name: Disable selinux (reboot required to fully disable)
+#        raw: sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux && setenforce 0
+#
+#      - name: Installing ruby dev headers, gcc, make, and foreman-installer
+#        yum: pkg={{ item }} state=installed
+#        with_items:
+#          - ruby-devel
+#          - gcc
+#          - make
+#          - foreman-installer
+#
+#      - name: Install Foreman
+#        raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password '{{ domainpassword }}'
+#
+#      - name: Disable Websockets SSL for Foreman
+#        raw: "sed -i 's/websockets_encrypt: on/websockets_encrypt: off/' /etc/foreman/settings.yaml"
+#
+#      - name: Restart Foreman
+#        systemd:
+#          state: restarted
+#          name: foreman
+#
+#      - name: Integrate Foreman with team AD/LDAP server
+#        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
+#
+#      - name: Fix Hammer role filter permissions for the Default role
+#        raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role 'Default role' --permission-ids $i; done
+#
+#      - name: Create vCenter Compute Resource
+#        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
+#
+#      - name: Upload Windows 10 Provision Template
+#        copy:
+#          src: conf/windows_10_default.yml
+#          dest: /tmp/windows_10_default.yml
+#
+#      - name: Add Windows 10 Provision template to Foreman
+#        raw: hammer template create --name windows_10_default --file /tmp/windows_10_default.yml --type user_data
+#
+#      - name: Add Windows 10 OS to Foreman
+#        raw: hammer os create --name 'Windows' --major 10 --family Windows --architectures x86_64 --provisioning-templates windows_10_default
+#
+#      - name: Set Windows 10 default provisioning template
+#        raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep windows_10_default | awk '{ print $1 }'`
+#
+#      - name: Create production environment
+#        raw: hammer environment create --name production
 
-      - name: Change Hostname
-        raw: hostname foreman.{{ domainname }} && echo 'foreman.{{ domainname }}' > /etc/hostname
+      - name: Add corp subnet
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
 
-      - name: Update hosts file
-        raw: sed -i 's/127.0.0.1\s*localhost localhost.localdomain localhost4 localhost4.localdomain4/127.0.0.1   foreman.{{ domainname }} localhost localhost.localdomain localhost4 localhost4.localdomain4/' /etc/hosts
-
-      - name: Disable selinux (reboot required to fully disable)
-        raw: sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux && setenforce 0
-
-      - name: Installing ruby dev headers, gcc, make, and foreman-installer
-        yum: pkg={{ item }} state=installed
-        with_items:
-          - ruby-devel
-          - gcc
-          - make
-          - foreman-installer
-
-      - name: Install Foreman
-        raw: foreman-installer --enable-foreman-compute-vmware --foreman-admin-password '{{ domainpassword }}'
-
-      - name: Disable Websockets SSL for Foreman
-        raw: "sed -i 's/websockets_encrypt: on/websockets_encrypt: off/' /etc/foreman/settings.yaml"
-
-      - name: Restart Foreman
-        systemd:
-          state: restarted
-          name: foreman
-
-      - name: Integrate Foreman with team AD/LDAP server
-        raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
-
-      - name: Fix Hammer role filter permissions for the Default role
-        raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role 'Default role' --permission-ids $i; done
-
-      - name: Create vCenter Compute Resource
-        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
-
-      - name: Upload Windows 10 Provision Template
-        copy:
-          src: conf/windows_10_default.yml
-          dest: /tmp/windows_10_default.yml
-
-      - name: Add Windows 10 Provision template to Foreman
-        raw: hammer template create --name windows_10_default --file /tmp/windows_10_default.yml --type user_data
-
-      - name: Add Windows 10 OS to Foreman
-        raw: hammer os create --name 'Windows' --major 10 --family Windows --architectures x86_64 --provisioning-templates windows_10_default
-
-      - name: Set Windows 10 default provisioning template
-        raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep windows_10_default | awk '{ print $1 }'`
+      - name: Add dev subnet
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Create corp hostgroup
         raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co
@@ -69,12 +78,6 @@
 
       - name: Add VMWare Compute Resource image for Windows 10
         raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
-
-      - name: Add corp subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
-
-      - name: Add dev subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Delete Provision templates from disk
         file: path='/tmp/windows_10_default.yml' state=absent

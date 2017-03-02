@@ -1,9 +1,9 @@
 Type,Address,Name
 A,10.0.X.40,dc.f-sportsX.co
 CNAME,ns1,dc.f-sportsX.co
-A,10.0.X.30,esxi.corp.f-sportsX.co
+A,10.0.X.30,esxi.f-sportsX.co
 A,10.0.X.50,mail.f-sportsX.co
 A,10.0.X.182,vcenter.f-sportsX.co
-A,10.1.X.28,esxi.dev.f-sportsX.co
-A,10.1.X.37,foreman.dev.f-sportsX.co
+A,10.1.X.28,esxi.f-sportsX.co
+A,10.1.X.37,foreman.f-sportsX.co
 MX,10.0.X.50,mail.f-sportsX.co
