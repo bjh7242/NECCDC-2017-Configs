@@ -27,11 +27,6 @@ zone "255.in-addr.arpa" {
 	file "/etc/bind/db.255";
 };
 
-zone "hackershelter.lan" {
-	type master;
-	file "/etc/bind/hackershelter.db";
-};
-
 zone "trade." {
 	type master;
 	file "/etc/bind/trade.db";
