@@ -26,10 +26,8 @@ RUN echo "container-www" > /etc/hostname
 
 ### Start Nginx via CMD
 ENTRYPOINT service nginx start && /bin/bash
-#CMD service nginx start
 
 ### Add vulnerabilities.
-
 ### To mount host dir into container run cmd below:
 # docker run -v /Users/<path>:/<container path> 
 # docker run -d ccdc\www /usr/sbin/nginx
