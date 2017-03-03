@@ -1,26 +1,26 @@
 ---
-- hosts: DNS
+- hosts: all
   become: yes
   become_user: root
 
 
   tasks:
       - name: Install Bind
-        package: name=bind9 state=latest
+        apt: name=bind9 update_cache=yes
         tags: bind_install
 
       - name: Install Bind Utils
-        package: name=bind-utils state=latest
+        package: name=bind9utils state=latest
         tags: bind_utils_install
 
       - name: Copy Bind named.conf.options
-        copy: src=../Config/named.conf.options dest=/etc/bind/named.conf.options
+        copy: src=../Configs/named.conf.options dest=/etc/bind/named.conf.options
         tags: copy_options
 
       - name: Copy Bind named.conf.default-zones
-        copy: src=../Config/named.conf.zones dest=/etc/bind/named.conf.default-zones
+        copy: src=../Configs/named.conf.default-zones dest=/etc/bind/named.conf.default-zones
         tags: copy_zones 
 
       - name: Copy TLD zone file for .trade
-        copy: src=../Config/trade.db dest=/etc/bind/trade.db
+        copy: src=../Configs/trade.db dest=/etc/bind/trade.db
         tags: copy_tld
