@@ -2,6 +2,7 @@ FROM ubuntu
 MAINTAINER NECCDC
 EXPOSE 23 21 80 443 3306 8080
 RUN apt-get update -y
+RUN apt-get update --fix-missing -y
 RUN apt-get install git vim nginx openssh-server mysql-client net-tools python2.7 -y
 
 # Python Requirements.
@@ -23,8 +24,9 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN echo "container-www" > /etc/hostname
 
 
-### Start Nginx
-RUN service nginx start
+### Start Nginx via CMD
+ENTRYPOINT service nginx start && /bin/bash
+#CMD service nginx start
 
 ### Add vulnerabilities.
 
