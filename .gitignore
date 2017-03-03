@@ -4,3 +4,6 @@ www/*
 *.retry
 *.txt
 test.yml
+*Vagrant*
+*vagrant*
+
