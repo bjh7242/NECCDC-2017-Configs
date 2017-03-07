@@ -1,3 +1,6 @@
+create database customer_info;
+use customer_info;
+
 DROP TABLE `User_Data`;
 
 CREATE TABLE `User_Data` (
