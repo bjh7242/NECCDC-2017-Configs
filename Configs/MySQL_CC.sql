@@ -1,5 +1,5 @@
-create database cc_cards;
-use cc_cards;
+create database old_customers;
+use old_customers;
 
 CREATE TABLE `User_Cards` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,

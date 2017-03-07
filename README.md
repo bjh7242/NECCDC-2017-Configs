@@ -40,6 +40,5 @@ config.vm.provision "ansible" do |ansible|
 end
 ```
 
-
 ### TODO
 * Get custom webapp from Chaim to put in container.
