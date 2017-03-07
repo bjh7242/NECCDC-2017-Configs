@@ -1,0 +1,29 @@
+;
+; BIND data file for TLD ".trade"
+;
+$TTL	604800
+@	IN	SOA	trade. root.trade. (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; Blackteam ran NS server
+@	  IN	NS	ns1.jackal.
+@	  IN	NS	ns2.jackal.
+ns1	  IN	A	10.10.10.100
+ns2	  IN	A 	10.10.10.200
+
+
+; BlueTeam NS Servers
+ns1.blueteam-1	IN	A	10.0.1.100
+ns1.blueteam-2	IN	A	10.0.2.100
+ns1.blueteam-3	IN	A	10.0.3.100
+ns1.blueteam-4	IN	A	10.0.4.100
+ns1.blueteam-5	IN	A	10.0.5.100
+ns1.blueteam-6	IN	A	10.0.6.100
+ns1.blueteam-7	IN	A	10.0.7.100
+ns1.blueteam-8	IN	A	10.0.8.100
+ns1.blueteam-9	IN	A	10.0.9.100
+ns1.blueteam-10	IN	A	10.0.10.100
