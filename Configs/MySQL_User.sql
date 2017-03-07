@@ -1,8 +1,6 @@
 create database customer_info;
 use customer_info;
 
-DROP TABLE `User_Data`;
-
 CREATE TABLE `User_Data` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `Usr_Name` varchar(255) default NULL,
