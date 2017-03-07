@@ -1,0 +1,9 @@
+inventory.yml
+*.tar.gz
+www/*
+*.retry
+*.txt
+test.yml
+*Vagrant*
+*vagrant*
+
