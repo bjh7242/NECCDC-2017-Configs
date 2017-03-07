@@ -13,13 +13,33 @@
         apt: name=vsftpd update_cache=yes
         tags: vsftp_install
 
+      - name: Creating default web dir
+        shell: mkdir /var/www/
+        tags: make_www
+
+      - name: MySQL-Python 
+        apt: name=python-mysqldb update_cache=no
+        tags: vsftp_install
+
       - name: MySQL Server Install
-        apt: name=mysql-server update_cache=yes
+        apt: name=mysql-server update_cache=no
         tags: mysql_server
         
       - name: MySQL Server Config Copy
         copy: src=../Configs/my.cnf dest=/etc/mysql/my.cnf
         tags: mysql_server_config
+
+      - name: MySQL DB create
+        mysql_db: name=cc_cards_old state=present
+        tags: mysql_db_create
+
+      - name: MySQL SQL-DB Copy
+        copy: src=../Configs/MySQL_CC.sql dest=/tmp/cc_db.sql
+        tags: mysql_server_config
+
+      - name: MySQL DB Import
+        mysql_db: name=all state=import target=/tmp/cc_db.sql
+        tags: mysql_db_create
 
       - name: MySQL Service Restart
         service: name=mysql state=restarted
@@ -56,3 +76,9 @@
         become: yes
         become_user: root
         tags: clear_bash
+
+      - name: Remove MySQL file.
+        shell: rm /tmp/cc_db.sql
+        become: yes
+        become_user: root
+        tags: clear_tmp
