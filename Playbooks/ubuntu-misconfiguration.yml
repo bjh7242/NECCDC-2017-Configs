@@ -14,8 +14,16 @@
         tags: vsftp_install
 
       - name: MySQL Server Install
-        apt: name=mariadb update_cache=yes
+        apt: name=mysql-server update_cache=yes
         tags: mysql_server
+        
+      - name: MySQL Server Config Copy
+        copy: src=../Configs/my.cnf dest=/etc/mysql/my.cnf
+        tags: mysql_server_config
+
+      - name: MySQL Service Restart
+        service: name=mysql state=restarted
+        tags: mysql_restart_service
 
       - name: Add Webmin Repos-1
         shell: "echo deb http://download.webmWebmion.com/download/repository sarge contrib >> /etc/apt/sources.list"
