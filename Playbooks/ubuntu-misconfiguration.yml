@@ -71,6 +71,17 @@
         become_user: root
         tags: add_users
 
+        # Ansible has a user module, but this is easier.
+      - name: Granting sudo.
+        shell: "for user in awsadmin intern2 mysqladmin cloudadmin; do usermod -aG sudo $user; done"
+        become: yes
+        become_user: root
+        tags: add_users
+
+
+
+        
+
       - name: Clear bash history.
         shell: echo "" > ~/.bash_history;
         become: yes
