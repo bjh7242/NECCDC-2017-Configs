@@ -1,13 +1,13 @@
 #!/bin/bash
 
-echo awsadmin:Netsys1!::::: | newusers
-echo cloudadmin:Netsys1!::::: | newusers
-echo mysqladmin:Netsys1!::::: | newusers
+echo awsadmin:Netsys123$::::: | newusers 
+echo cloudadmin:Netsys123$::::: | newusers 
+echo mysqladmin:Netsys123$::::: | newusers 
 echo mgmt:iloveyou::::: | newusers
 echo bspringsteen:rockandroll::::: | newusers
-echo rsyncadmin:Netsys1!::::: | newusers
+echo rsyncadmin:catdog::::: | newusers
 echo intern:dragon::::: | newusers
 echo intern2:dragons::::: | newusers
 echo jameson:startupfun::::: | newusers
-echo labron:access::::: | newusers
-echo jdaniel:world::::: | newusers
+echo labron:lakers::::: | newusers
+echo jdaniel:jesus::::: | newusers
