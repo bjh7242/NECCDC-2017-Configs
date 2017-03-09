@@ -4,15 +4,26 @@
   strategy: debug
 
   tasks:
-      - name: Add EPEL, Foreman, and Puppetlabs Repos
+      - name: Add EPEL, Foreman, Puppetlabs Repos, haveged
         yum: pkg={{ item }} state=installed
         with_items: 
           - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
           - epel-release
+          - haveged
           - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
 
+      - name: Start haveged
+        systemd:
+          state: started
+          enabled: yes
+          name: haveged
+
       - name: Disabling firewalld
-        raw: systemctl stop firewalld && systemctl disable firewalld
+        systemd:
+          name: firewalld
+          state: stopped
+          masked: yes
+          enabled: no
 
       - name: Change Hostname
         raw: hostname foreman.{{ domainname }} && echo 'foreman.{{ domainname }}' > /etc/hostname
@@ -21,14 +32,11 @@
         raw: sed -i 's/127.0.0.1\s*localhost localhost.localdomain localhost4 localhost4.localdomain4/127.0.0.1   foreman.{{ domainname }} localhost localhost.localdomain localhost4 localhost4.localdomain4/' /etc/hosts
 
       - name: Disable selinux (reboot required to fully disable)
-        raw: sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux && setenforce 0
+        raw: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux && setenforce 0
 
-      - name: Installing ruby dev headers, gcc, make, and foreman-installer
+      - name: Installing foreman-installer
         yum: pkg={{ item }} state=installed
         with_items:
-          - ruby-devel
-          - gcc
-          - make
           - foreman-installer
 
       - name: Install Foreman
@@ -51,6 +59,13 @@
       - name: Create vCenter Compute Resource
         raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
 
+      - name: Install puppet stdlib module
+        raw: /opt/puppetlabs/bin/puppet module install puppetlabs-stdlib
+
+      - name: Import puppet classes into foreman
+        raw: hammer proxy import-classes --name foreman.f-sports{{ teamnumber }}.co
+
+
       - name: Upload Windows 10 Provision Template
         copy:
           src: conf/windows_10_default.yml
@@ -65,26 +80,23 @@
       - name: Set Windows 10 default provisioning template
         raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep windows_10_default | awk '{ print $1 }'`
 
-      - name: Upload CentOS Provision Template
-        copy: 
-          src: conf/centos_vcenter_provision.yml
-          dest: /tmp/centos_vcenter_provision.yml        
-
-      - name: Add CentOS Provision template for Foreman
-        raw: hammer template create --name centos_vcenter_provision --file /tmp/centos_vcenter_provision.yml --type user_data
-
-      - name: Add CentOS 7 OS to Foreman
-        raw: hammer os create --name 'CentOS' --major 7 --family Redhat --architectures x86_64 --provisioning-templates centos_vcenter_provision
-
+#      - name: Upload CentOS Provision Template
+#        copy: 
+#          src: conf/centos_vcenter_provision.yml
+#          dest: /tmp/centos_vcenter_provision.yml        
+#
+#      - name: Add CentOS Provision template for Foreman
+#        raw: hammer template create --name centos_vcenter_provision --file /tmp/centos_vcenter_provision.yml --type user_data
+#
+#      - name: Add CentOS 7 OS to Foreman
+#        raw: hammer os create --name 'CentOS' --major 7 --family Redhat --architectures x86_64 --provisioning-templates centos_vcenter_provision
+#
 #      - name: Update existing CentOS to add new provision template
 #        raw:  hammer os update --id `hammer os list | grep -i centos | awk '{ print $1 }'`  --provisioning-templates centos_vcenter_provision
-
-      - name: Set CentOS 7 default provisioning template
-        raw: hammer os set-default-template --id `hammer os list | grep -i 'centos' | awk '{ print $1 }'` --config-template-id `hammer template list | grep centos_vcenter_provision | awk '{ print $1 }'`
-
-      - name: Create production environment
-        raw: hammer environment create --name production
-
+#
+#      - name: Set CentOS 7 default provisioning template
+#        raw: hammer os set-default-template --id `hammer os list | grep -i 'centos' | awk '{ print $1 }'` --config-template-id `hammer template list | grep centos_vcenter_provision | awk '{ print $1 }'`
+#
       - name: Add domain 
         raw: hammer domain create --name f-sports{{ teamnumber }}.co
 
@@ -93,26 +105,144 @@
 
       - name: Add dev subnet
         raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
+      
+      - name: Create infrastructure hostgroup
+        raw: hammer hostgroup create --architecture x86_64 --name 'Infrastructure' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --puppet-ca-proxy 'foreman.f-sports1.co' --puppet-proxy 'foreman.f-sports1.co'
 
       - name: Create corp hostgroup
-        raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co
+        raw: hammer hostgroup create --architecture x86_64 --name 'Corp' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
 
       - name: Create dev hostgroup
-        raw: hammer hostgroup create --architecture x86_64 --name 'dev network hostgroup' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co
+        raw: hammer hostgroup create --architecture x86_64 --name 'Dev' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
 
-      - name: Add VMWare Compute Resource image for Windows 10
-        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
+      - name: Add Foreman host to corp hostgroup
+        raw: hammer host update --name foreman.f-sports{{ teamnumber }}.co --hostgroup "Corp"
 
-      - name: Add VMWare Compute Resource image for CentOS 7
-        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'CentOS 7' --operatingsystem-id `hammer os list | grep -i centos | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/CentOS 7'
 
+#######
+# DHCPD
+      - name: DHCP - install dhcpd
+        yum: pkg={{ item }} state=installed
+        with_items: 
+          - dhcp
+
+      - name: DHCP - Copy Config
+        copy:
+          src: dhcp/dhcpd.conf
+          dest: /etc/dhcp/dhcpd.conf
+          mode: 0640
+          group: foreman-proxy
+          backup: yes
+
+      - name: DHCP - set permissions on /etc/dhcpd for foreman SmartProxy
+        acl:
+          path: /etc/dhcp
+          entity: foreman-proxy
+          etype: group
+          permissions: rx
+          state: present
+
+      - name: DHCP - Config - replace team number
+        replace:
+          dest: /etc/dhcp/dhcpd.conf
+          regexp: '_TEAMNUMBER_'
+          replace: '{{ teamnumber }}'
+
+      - name: DHCP - Config - replace domain name
+        replace:
+          dest: /etc/dhcp/dhcpd.conf
+          regexp: '_DOMAINNAME_'
+          replace: '{{ domainname }}'
+
+      - name: DHCP SmartProxy - enable dhcp smart proxy
+        replace:
+          dest: /etc/foreman-proxy/settings.d/dhcp.yml
+          regexp: '^:enabled: false'
+          replace: ':enabled: true'
+
+      - name: DHCP SmartProxy - Copy Config
+        copy:
+          src: dhcp/dhcp_isc.yml
+          dest: /etc/foreman-proxy/settings.d/dhcp_isc.yml
+          mode: 0640
+          owner: root
+          group: foreman-proxy
+          backup: yes
+
+      - name: DHCP - Starting Daemon
+        systemd:
+          state: started
+          enabled: yes
+          name: dhcpd
+
+      - name: Foreman SmartProxy - Restarting Daemon
+        systemd:
+          state: restarted
+          enabled: yes
+          name: foreman-proxy
+
+      - name: Foreman SmartProxy - Refresh
+        raw: hammer proxy refresh-features --name foreman.{{ domainname }}
+
+      - name: Foreman SmartProxy - update subnets
+        raw: hammer subnet update --name dev --tftp-id 1 --dhcp-id 1 && hammer subnet update --name corp --tftp-id 1 --dhcp-id 1
+
+#######
+# DNS
+      - name: DNS - install bind-utils
+        yum: pkg={{ item }} state=installed
+        with_items: 
+          - bind-utils
+
+      - name: DNS SmartProxy - enable dns
+        replace:
+          dest: /etc/foreman-proxy/settings.d/dns.yml
+          regexp: '^:enabled: false'
+          replace: ':enabled: true'
+
+      - name: DNS SmartProxy - disable rndc key
+        replace:
+          dest: /etc/foreman-proxy/settings.d/dns_nsupdate.yml
+          regexp: '^:dns_key:'
+          replace: '#:dns_key:'
+
+      - name: DNS SmartProxy - set DNS server IP
+        replace:
+          dest: /etc/foreman-proxy/settings.d/dns_nsupdate.yml
+          regexp: '^:dns_server:.*'
+          replace: ':dns_server: 10.0.{{ teamnumber }}.40'
+
+      - name: Foreman SmartProxy - Restarting Daemon
+        systemd:
+          state: restarted
+          enabled: yes
+          name: foreman-proxy
+
+      - name: Foreman SmartProxy - Refresh
+        raw: hammer proxy refresh-features --name foreman.{{ domainname }}
+
+      - name: Foreman DNS - update with smartproxy
+        raw: hammer domain update --name {{ domainname }} --dns-id 1
+
+
+
+
+#      - name: Add VMWare Compute Resource image for Windows 10
+#        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
+#
+#      - name: Add VMWare Compute Resource image for CentOS 7
+#        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'CentOS 7' --operatingsystem-id `hammer os list | grep -i centos | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/CentOS 7'
+#
       - name: Delete Provision templates from disk
         file: 
           path: '{{ item }}' 
           state: absent
         with_items:
-          - /tmp/centos_vcenter_provision.yml
+#          - /tmp/centos_vcenter_provision.yml
           - /tmp/windows_10_default.yml
+
+      - name: Run Puppet
+        raw: /opt/puppetlabs/bin/puppet agent -t
 
       - name: 'Manually check the useraccount creation at login box for LDAP auth'
         debug:
