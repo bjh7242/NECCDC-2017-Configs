@@ -1,5 +1,5 @@
 ---
-- hosts: docker_web_hosts
+- hosts: ubuntuprod
 
   tasks:
       - name: Installing Latest Docker Stack.
