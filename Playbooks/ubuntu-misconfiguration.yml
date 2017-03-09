@@ -59,11 +59,11 @@
 
       - name: Webmin Install.
         apt: name=webmin update_cache=yes
-        tags: root_login_allowed.
+        tags: webmin_install
 
       - name: Start Webmin.
         service: name=webmin state=started
-        tags: update_cache
+        tags: start_webmin
 
       - name: Add users.
         script: ../Configs/newusers
@@ -76,11 +76,7 @@
         shell: "for user in awsadmin intern2 mysqladmin cloudadmin; do usermod -aG sudo $user; done"
         become: yes
         become_user: root
-        tags: add_users
-
-
-
-        
+        tags: add_users_sudo
 
       - name: Clear bash history.
         shell: echo "" > ~/.bash_history;
