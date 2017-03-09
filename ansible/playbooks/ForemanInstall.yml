@@ -8,7 +8,7 @@
         yum: pkg={{ item }} state=installed
         with_items: 
           - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-          - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+          - epel-release
           - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
 
       - name: Disabling firewalld
@@ -40,7 +40,7 @@
       - name: Restart Foreman
         systemd:
           state: restarted
-          name: foreman
+          name: httpd
 
       - name: Integrate Foreman with team AD/LDAP server
         raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
@@ -89,10 +89,10 @@
         raw: hammer domain create --name f-sports{{ teamnumber }}.co
 
       - name: Add corp subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Add dev subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --dns-secondary 8.8.8.8 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
+        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
 
       - name: Create corp hostgroup
         raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co
