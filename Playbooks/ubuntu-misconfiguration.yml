@@ -3,12 +3,18 @@
   become: yes
   become_user: root
 
-
   tasks:
+
+        #### SSH
       - name: Permit root login via SSH.
         shell: sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
         tags: root_login_allowed.
 
+      - name: SSH Restarting...
+        service: name=ssh state=restarted
+        tags: ssh_restart
+
+        #### FTP
       - name: VSFTP Install
         apt: name=vsftpd update_cache=yes
         tags: vsftp_install
@@ -17,6 +23,15 @@
         shell: mkdir /var/www/
         tags: make_www
 
+      - name: VSFTPD Vuln config.
+        copy: src=../Configs/vsftpd.conf dest=/etc/vsftpd.conf
+        tags: vsftp_config
+
+      - name: VSFTPD Vuln config.
+        service: name=vsftpd state=restarted
+        tags: vsftp_restart
+
+        #### MySQL
       - name: MySQL-Python 
         apt: name=python-mysqldb update_cache=no
         tags: vsftp_install
