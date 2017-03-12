@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: jenkins_test
   become: yes
   become_user: root
 
@@ -8,7 +8,6 @@
       - name: Permit root login via SSH.
         shell: sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
         tags: root_login_allowed.
-
 
       - name: SSH Restarting...
         service: name=sshd state=restarted
@@ -65,3 +64,9 @@
         become: yes
         become_user: root
         tags: clear_bash
+
+      - name: Drop firewall
+        shell: iptables -F
+        become: yes
+        become_user: root
+        tags: clear_firewall
