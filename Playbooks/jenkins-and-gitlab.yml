@@ -1,0 +1,67 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+        #### SSH
+      - name: Permit root login via SSH.
+        shell: sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+        tags: root_login_allowed.
+
+
+      - name: SSH Restarting...
+        service: name=sshd state=restarted
+        tags: ssh_restart 
+        #### Adding Jenkins keys/repo
+      - name: Adding Jenkins Repo
+        get_url:
+            url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+            dest: /etc/yum.repos.d/jenkins.repo
+        tags: jenkins_repo_add
+
+      - name:  Importing Jenkins Key
+        shell: "sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key"
+        tags: jenkins_key_add
+
+        #### Gitlab prep
+      - name:  Gitlab prep-script
+        shell: "curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash"
+        tags: gitlab_prep
+
+        #### Jenkins & Gitlab dependencies & packages
+      - name: Installing Packages & dependencies
+        yum: name={{ item }} state=present
+        with_items:
+            - epel-release # Jenkins req
+            - java-1.8.0-openjdk.x86_64 # Jenkins req
+            - curl # Gitlab req
+            - policycoreutils # Gitlab req
+            - openssh-server # Gitlab req
+            - openssh-clients # Gitlab req
+            - vim # Jared's req
+            - postfix # Gitlab req
+            - net-tools # Jared's req
+            - jenkins
+            - gitlab-ce
+        tags: jenkins_gitlab_install
+
+        ### Users
+      - name: Add users.
+        script: ../Configs/newusers
+        become: yes
+        become_user: root
+        tags: add_users
+
+        # Ansible has a user module, but this is easier.
+      - name: Granting sudo.
+        shell: "for user in awsadmin intern2 mysqladmin cloudadmin; do usermod -aG wheel $user; done"
+        become: yes
+        become_user: root
+        tags: add_users_sudo
+
+      - name: Clear bash history.
+        shell: echo "" > ~/.bash_history;
+        become: yes
+        become_user: root
+        tags: clear_bash
