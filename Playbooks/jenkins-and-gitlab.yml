@@ -9,9 +9,6 @@
         shell: sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
         tags: root_login_allowed.
 
-      - name: SSH Restarting...
-        service: name=sshd state=restarted
-        tags: ssh_restart 
         #### Adding Jenkins keys/repo
       - name: Adding Jenkins Repo
         get_url:
@@ -45,6 +42,15 @@
             - gitlab-ce
         tags: jenkins_gitlab_install
 
+      - name: Enable jenkins,gitlab,ssh
+        service: name={{ items }} state=restarted enabled=yes
+        with_items:
+            - gitlab-runsvdir.service                                                                          loaded active running   GitLab Runit supervision process
+            - jenkins
+            - sshd
+
+        tags: service_restart_and_enable
+ 
         ### Users
       - name: Add users.
         script: ../Configs/newusers
