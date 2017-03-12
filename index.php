@@ -9,7 +9,7 @@
 			$site = $_GET['page'];
 		}
 		?>
-		<?php include("header.html"); ?>
+		<?php include("header.php"); ?>
 		<?php include($site); ?>
 		<?php include("footer.html"); ?>
 	</body>

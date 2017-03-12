@@ -4,9 +4,16 @@
 		<ul class="navlinks">
 			<li class="navlink"><div id="spacer"></div></li>
 			<li class="navlink"><a href="index.php">Home</a></li>
-			<li class="navlink"><a href="index.php?page=my_fantasy.php">My Fantasy</a></li>
-			<li class="navlink"><a href="index.php?page=settings.php">Settings</a></li>
 			<li class="navlink"><a href="index.php?page=about.php">About</a></li>
+			<li class="navlink"><a href="index.php?page=rankings.php">Rankings</a></li>
+			<li class="navlink"><a href="index.php?page=standings.php">Standings</a></li>
+			
+			<?php if(isset($session['logged_in']) and $session['logged_in'] == True){
+			echo '
+                        <li class="navlink"><a href="index.php?page=my_fantasy.php">My Fantasy</a></li>
+                        <li class="navlink"><a href="index.php?page=settings.php">Settings</a></li>
+			';
+			}?>
 		</ul>
 	</div>
 	<div id="signin">
