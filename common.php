@@ -10,4 +10,10 @@
 		echo "Debugging errno: " . mysqli_connect_errno();
 		exit();
 	}
+        $link2 = mysqli_connect($settings['dbhost'], $settings['dbuname'], $settings['dbpass'], $settings['dbname2']);
+        if (!$link2) {
+                echo "Debugging errno: " . mysqli_connect_errno();
+                exit();
+        }
+
 ?>

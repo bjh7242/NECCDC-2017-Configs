@@ -50,6 +50,24 @@
 	margin-bottom: 20px;
 }
 
+
+#standtable {
+	border-collapse: collapse;
+	width: 1px;
+}
+
+#standtable td {
+ 	width: 1px;
+	white-space: nowrap;
+	padding-left: 50px;
+}
+
+#standtable th {
+	text-align: left;
+	width: auto;
+	padding-left: 50px;
+}
+
 #signin-button  {
     white-space: nowrap;
     text-transform: uppercase;
