@@ -9,6 +9,36 @@
 	z-index: 2;
 }
 
+.focus {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+.focus:focus {
+    border: 3px solid #555;
+}
+
+.bad {
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+#sub {
+    background-color: #3CBC8D;
+    color: white;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+}
+
 #logo {
 	position: relative;
 	left: 22px;
@@ -60,6 +90,10 @@
  	width: 1px;
 	white-space: nowrap;
 	padding-left: 50px;
+}
+
+#ranktable th {
+	text-align:left;
 }
 
 #standtable th {
