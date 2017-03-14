@@ -11,6 +11,9 @@
           - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
           - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
 
+      - name: Disabling firewalld
+        raw: systemctl stop firewalld && systemctl disable firewalld
+
       - name: Change Hostname
         raw: hostname foreman.{{ domainname }} && echo 'foreman.{{ domainname }}' > /etc/hostname
 
@@ -62,6 +65,23 @@
       - name: Set Windows 10 default provisioning template
         raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep windows_10_default | awk '{ print $1 }'`
 
+      - name: Upload CentOS Provision Template
+        copy: 
+          src: conf/centos_vcenter_provision.yml
+          dest: /tmp/centos_vcenter_provision.yml        
+
+      - name: Add CentOS Provision template for Foreman
+        raw: hammer template create --name centos_vcenter_provision --file /tmp/centos_vcenter_provision.yml --type user_data
+
+      - name: Add CentOS 7 OS to Foreman
+        raw: hammer os create --name 'CentOS' --major 7 --family Redhat --architectures x86_64 --provisioning-templates centos_vcenter_provision
+
+#      - name: Update existing CentOS to add new provision template
+#        raw:  hammer os update --id `hammer os list | grep -i centos | awk '{ print $1 }'`  --provisioning-templates centos_vcenter_provision
+
+      - name: Set CentOS 7 default provisioning template
+        raw: hammer os set-default-template --id `hammer os list | grep -i 'centos' | awk '{ print $1 }'` --config-template-id `hammer template list | grep centos_vcenter_provision | awk '{ print $1 }'`
+
       - name: Create production environment
         raw: hammer environment create --name production
 
@@ -77,17 +97,22 @@
       - name: Create corp hostgroup
         raw: hammer hostgroup create --architecture x86_64 --name 'corp network hostgroup' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co
 
-      - name: Create corp hostgroup
+      - name: Create dev hostgroup
         raw: hammer hostgroup create --architecture x86_64 --name 'dev network hostgroup' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co
 
       - name: Add VMWare Compute Resource image for Windows 10
         raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
 
-      - name: Delete Provision templates from disk
-        file: path='/tmp/windows_10_default.yml' state=absent
+      - name: Add VMWare Compute Resource image for CentOS 7
+        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'CentOS 7' --operatingsystem-id `hammer os list | grep -i centos | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/CentOS 7'
 
-      - name: Disabling firewalld
-        raw: systemctl stop firewalld && systemctl disable firewalld
+      - name: Delete Provision templates from disk
+        file: 
+          path: '{{ item }}' 
+          state: absent
+        with_items:
+          - /tmp/centos_vcenter_provision.yml
+          - /tmp/windows_10_default.yml
 
       - name: 'Manually check the useraccount creation at login box for LDAP auth'
         debug:
