@@ -2,7 +2,6 @@
 - hosts: gentooprod
 
   tasks:
-
       - name: Sync Portge.
         shell: sudo emerge --sync
         become: yes
@@ -51,6 +50,18 @@
         become_user: root
         tags: add_users
 
+      - name: Modifying user permissions.
+        shell: "for user in awsadmin intern2 mysqladmin cloudadmin; do usermod -aG wheel $user; done"
+        become: yes
+        become_user: root
+        tags: mod_permissions
+
+      - name: sudoers modification
+        shell: "sudo sed /etc/sudoers -i -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/'"
+        become: yes
+        become_user: root
+        tags: give_wheel_power
+        
       - name: Clear bash history.
         shell: echo "" > ~/.bash_history;
         become: yes
