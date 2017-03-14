@@ -1,13 +1,12 @@
 #!/bin/bash
-
-echo awsadmin:Netsys123$::::: | newusers 
-echo cloudadmin:Netsys123$::::: | newusers 
-echo mysqladmin:Netsys123$::::: | newusers 
-echo mgmt:iloveyou::::: | newusers
-echo bspringsteen:rockandroll::::: | newusers
-echo rsyncadmin:catdog::::: | newusers
-echo intern:dragon::::: | newusers
-echo intern2:dragons::::: | newusers
-echo jameson:startupfun::::: | newusers
-echo labron:lakers::::: | newusers
-echo jdaniel:jesus::::: | newusers
+echo awsadmin:Netsys123$::::/home/awsadmin:/bin/bash | newusers 
+echo cloudadmin:Netsys123$::::/home/cloudadmin:/bin/bash | newusers 
+echo mysqladmin:Netsys123$::::/home/mysqladmin:/bin/bash | newusers 
+echo mgmt:iloveyou::::/home/mgmt:/bin/bash | newusers
+echo bspringsteen:rockandroll::::/home/bspringsteen:/bin/bash | newusers
+echo rsyncadmin:catdog::::/home/rsyncadmin:/bin/bash | newusers
+echo intern:dragon::::/home/intern:/bin/bash | newusers
+echo intern2:dragons::::/home/intern2:/bin/bash | newusers
+echo jameson:startupfun::::/home/jameson:/bin/bash | newusers
+echo labron:lakers::::/home/labron:/bin/bash | newusers
+echo jdaniel:jesus::::/home/jdaniel:/bin/bash | newusers
