@@ -5,18 +5,14 @@ windows,linux,domain-controllers,windows-clients,foreman
 [windows]
 10.0.0.40
 10.0.1.40
-10.0.0.10
-10.0.1.10
 
 
 [linux]
-10.1.0.37
-10.1.1.37
+10.0.0.37
 
 
 [linux:children]
 foreman
-esxi-hosts
 
 
 [linux:vars]
@@ -24,11 +20,14 @@ ansible_connection=ssh
 ansible_user=root
 ansible_password=Netsys123$
 ansible_port=22
+adserviceaccount='adbind-service'
+adbindpassword='@dBindP@$$w0rd1357_'
 
 
 [windows:children]
 domain-controllers
-windows-clients
+hmail
+#windows-clients
 
 
 [windows:vars]
@@ -40,7 +39,7 @@ ansible_port=5985
 
 [domain-controllers]
 10.0.0.40	domainname=f-sports0.co  netbiosname=F-SPORTS0  adbackuppass=Netsys1231$  team_number=0
-10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
+#10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
 #10.0.2.40	domainname=f-sports2.co  netbiosname=F-SPORTS2  adbackuppass=Netsys1233$  team_number=2
 #10.0.3.40	domainname=f-sports3.co  netbiosname=F-SPORTS3  adbackuppass=Netsys1234$  team_number=3
 #10.0.4.40	domainname=f-sports4.co  netbiosname=F-SPORTS4  adbackuppass=Netsys1235$  team_number=4
@@ -59,7 +58,7 @@ ansible_port=5985
 
 [foreman]
 10.0.0.37 domainname=f-sports0.co domaincontrollerip='10.0.0.40' basedn='dc=f-sports0,dc=co' netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
-10.0.1.37 domainname=f-sports1.co domaincontrollerip='10.0.1.40' basedn='dc=f-sports1,dc=co' netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
+#10.0.1.37 domainname=f-sports1.co domaincontrollerip='10.0.1.40' basedn='dc=f-sports1,dc=co' netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
 #10.0.2.37 domainname=f-sports2.co domaincontrollerip='10.0.2.40' basedn='dc=f-sports2,dc=co' netbiosname=f-sports2 teamnumber=2  domainpassword='Netsys123$'
 #10.0.3.37 domainname=f-sports3.co domaincontrollerip='10.0.3.40' basedn='dc=f-sports3,dc=co' netbiosname=f-sports3 teamnumber=3  domainpassword='Netsys123$'
 #10.0.4.37 domainname=f-sports4.co domaincontrollerip='10.0.4.40' basedn='dc=f-sports4,dc=co' netbiosname=f-sports4 teamnumber=4  domainpassword='Netsys123$'
@@ -85,3 +84,5 @@ ansible_port=5985
 #10.0.10.30 domaincontrollerip=10.0.10.40
 
 
+[hmail]
+10.0.0.21
