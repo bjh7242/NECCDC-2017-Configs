@@ -13,7 +13,7 @@
           src: scripts/DNSRecords.csv
           dest: C:\DNSRecords.csv
 
-      - name: Add DNS records
+      - name: Add DNS records and Enable Zone Transfers/Updates
         script: scripts/Add-DnsRecords.ps1 C:\DNSRecords.csv {{ team_number }} -CreatePtrs
 
       - name: Delete DNS Record CSV

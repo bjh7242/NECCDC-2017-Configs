@@ -1,4 +1,3 @@
-# https://github.com/wumb0/ISTS-PS-Scripts/blob/master/resource/Add-DnsRecordsFromCSV.ps1 
 # PTR records assume that the network is a /24
 
 param (
@@ -7,16 +6,17 @@ param (
     [switch]$CreatePtrs = $true
 )
 
+$revzones = @()
+
 Import-Csv $FileName | % {
-    $CreatedRevZone = $false
     $ip = $_.Address.replace("X", $TeamNumber)
     $RevZoneName = $ip.split(".")[2] + "." + $ip.split(".")[1] + "." + $ip.split(".")[0] + ".in-addr.arpa"
 
     # If the user wants a reverse zone, create it on the first loop only
-    if ($CreatePtrs -eq $true -and $CreatedRevZone -ne $true) {
+    if ($CreatePtrs -eq $true -and $revzones -contains $RevZoneName -eq $false) {
         $NetworkId = $ip.split(".")[0] + "." + $ip.split(".")[1] + "." + $ip.split(".")[2] + ".0/24"
         Add-DnsServerPrimaryZone -NetworkId "$NetworkId" -ReplicationScope Domain
-        $CreatedRevZone = $true
+        $revzones += $RevZoneName
     }
 
     $fqdn = $_.Name.replace("f-sportsX","f-sports$TeamNumber")
@@ -33,8 +33,12 @@ Import-Csv $FileName | % {
         Add-DnsServerResourceRecordCName -Name $name -HostNameAlias $_.Address -ZoneName $domain
     }
     if ($CreatePtrs -eq $true) {
-        # Add-DnsServerResourceRecordPtr -name "134" -ZoneName "164.168.192.in-addr.arpa" -PtrDomainName "dc.team0.ccdc"
-        Add-DnsServerResourceRecordPtr -name $_.Address.split(".")[3] -ZoneName $RevZoneName -PtrDomainName $fqdn
+        Add-DnsServerResourceRecordPtr -name $_.Address.split(".")[3] -ZoneName $RevZoneName -PtrDomainName $fqdn -ErrorAction SilentlyContinue
     }
 }
 
+# Enable Zone Transfers
+foreach ($zone in Get-DnsServerZone | select -ExpandProperty $_.ZoneName | where {$_.ZoneType -eq 'Primary' -and $_.IsAutoCreated -ne 'False'}) { cmd.exe /c dnscmd /ZoneResetSecondaries $zone.ZoneName /NonSecure}
+
+# Enable Zone Updates
+foreach ($zone in Get-DnsServerZone | select -ExpandProperty $_.ZoneName | where {$_.ZoneType -eq 'Primary' -and $_.IsAutoCreated -ne 'False' -and $_ZoneName -ne 'TrustAnchors'}) { cmd.exe /c dnscmd /Config $zone.ZoneName /AllowUpdate 1}

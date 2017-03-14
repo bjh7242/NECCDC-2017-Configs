@@ -26,10 +26,6 @@ adbindpassword='@dBindP@$$w0rd1357_'
 
 [windows:children]
 domain-controllers
-<<<<<<< HEAD
-hmail
-=======
->>>>>>> 1b1aeb8f4378de2f77dade494f4de8f6ec3dad56
 #windows-clients
 
 
