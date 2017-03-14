@@ -34,7 +34,6 @@ config.vm.provision "ansible" do |ansible|
 end
 ```
 
-<<<<<<< HEAD
 ### Playbooks
 
 #### bind-install.yml
@@ -53,7 +52,7 @@ Purpose: Install Nginx on Gentoo.
 
 #### ubuntu-misconfiguration.yml
 Purpose: Boot strap ubuntu with various configurations that can have security consequences.
-=======
+
 ### Jenkin & Gitlab Deployment
 1) Run jenkins-and-gitlab.yml
 2) Go to IP:8080
@@ -72,7 +71,6 @@ Purpose: Boot strap ubuntu with various configurations that can have security co
 ```
 sudo gitlab-ctl reconfigure
 ```
->>>>>>> 73550b965133ff8181fad2d8275c28ef939b6241
 
 ### TODO
 * Get custom webapp from Chaim to put in container.
