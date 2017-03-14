@@ -34,6 +34,7 @@ config.vm.provision "ansible" do |ansible|
 end
 ```
 
+<<<<<<< HEAD
 ### Playbooks
 
 #### bind-install.yml
@@ -52,6 +53,26 @@ Purpose: Install Nginx on Gentoo.
 
 #### ubuntu-misconfiguration.yml
 Purpose: Boot strap ubuntu with various configurations that can have security consequences.
+=======
+### Jenkin & Gitlab Deployment
+1) Run jenkins-and-gitlab.yml
+2) Go to IP:8080
+3) Complete Jenkins-Post install through web
+
+#### Jenkins Plugins to enable
+* Gitlab Plugin
+* SSH Plugin
+* Publish over SSH
+* Leave the rest to defaults
+* Credentials: admin/Netsys123$:w
+* Email adminteam0@fsports.co
+
+#### Gitlab
+1) Run the command below.
+```
+sudo gitlab-ctl reconfigure
+```
+>>>>>>> 73550b965133ff8181fad2d8275c28ef939b6241
 
 ### TODO
 * Get custom webapp from Chaim to put in container.

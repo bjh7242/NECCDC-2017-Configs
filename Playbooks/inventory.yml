@@ -7,7 +7,8 @@ ec2-54-172-147-128.compute-1.amazonaws.com
 ec2-34-207-113-123.compute-1.amazonaws.com
 
 [loadbalancer_1]
-ec2-34-207-248-2.compute-1.amazonaws.com
+ec2-34-207-229-17.compute-1.amazonaws.com
+#ec2-34-207-248-2.compute-1.amazonaws.com
 #ec2-52-87-175-213.compute-1.amazonaws.com
 
 [swarm_manager_team_1]
@@ -186,7 +187,8 @@ ec2-54-172-147-128.compute-1.amazonaws.com
 #### Misc Black Team Things
 ####
 [all_aws_prod]
-ec2-34-207-248-2.compute-1.amazonaws.com
+ec2-34-207-229-17.compute-1.amazonaws.com
+#ec2-34-207-248-2.compute-1.amazonaws.com
 #ec2-107-20-53-231.compute-1.amazonaws.com
 ec2-54-221-136-10.compute-1.amazonaws.com
 ec2-52-91-126-201.compute-1.amazonaws.com
@@ -232,7 +234,8 @@ ec2-34-207-113-123.compute-1.amazonaws.com
 ec2-54-172-147-128.compute-1.amazonaws.com
 
 [gentooprod] # All Gentoo AWS boxes.
-ec2-34-207-248-2.compute-1.amazonaws.com
+ec2-34-207-229-17.compute-1.amazonaws.com
+#ec2-34-207-248-2.compute-1.amazonaws.com
 #ec2-107-20-53-231.compute-1.amazonaws.com
 ec2-54-221-136-10.compute-1.amazonaws.com
 ec2-52-91-126-201.compute-1.amazonaws.com
@@ -283,3 +286,6 @@ ec2-54-172-147-128.compute-1.amazonaws.com
 ec2-54-145-89-226.compute-1.amazonaws.com
 ec2-52-200-75-136.compute-1.amazonaws.com
 ec2-52-91-223-75.compute-1.amazonaws.com
+
+[jenkins_test]
+10.0.0.21

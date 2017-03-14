@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: ubuntuprod
   become: yes
   become_user: root
 
@@ -20,14 +20,14 @@
         tags: vsftp_install
 
       - name: Creating default web dir
-        shell: mkdir /var/www/
+        file: path=/var/www/ state=directory mode=0777
         tags: make_www
 
       - name: VSFTPD Vuln config.
         copy: src=../Configs/vsftpd.conf dest=/etc/vsftpd.conf
         tags: vsftp_config
 
-      - name: VSFTPD Vuln config.
+      - name: Restarting VSFTPD
         service: name=vsftpd state=restarted
         tags: vsftp_restart
 
