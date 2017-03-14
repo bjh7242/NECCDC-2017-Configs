@@ -1,4 +1,5 @@
 ---
+# Designed for CentOS boxes
 - hosts: jenkins_test
   become: yes
   become_user: root
