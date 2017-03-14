@@ -36,6 +36,11 @@ end
 
 ### Playbooks
 
+### key-copy.yml
+Purpose: copy public key to authorized key file of users on destination machine.
+* Q) Why is every user given the same key-pair?
+* A) This was meant as an exercise in handling key-revocaition.
+
 #### bind-install.yml
 Purpose: Install Bind DNS for core blackteam infrastructure and copy <br />
 pre-made configs onto Ubuntu based Bind server.
