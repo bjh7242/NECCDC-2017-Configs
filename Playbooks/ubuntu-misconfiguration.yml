@@ -41,7 +41,7 @@
         tags: mysql_server
         
       - name: MySQL Server Config Copy
-        copy: src=../Configs/my.cnf dest=/etc/mysql/my.cnf
+        copy: src=../Configs/MySQL/my.cnf dest=/etc/mysql/my.cnf
         tags: mysql_server_config
 
       - name: MySQL DB create
@@ -49,7 +49,7 @@
         tags: mysql_db_create
 
       - name: MySQL SQL-DB Copy
-        copy: src=../Configs/MySQL_CC.sql dest=/tmp/cc_db.sql
+        copy: src=../Configs/MySQL/MySQL_CC.sql dest=/tmp/cc_db.sql
         tags: mysql_server_config
 
       - name: MySQL DB Import
