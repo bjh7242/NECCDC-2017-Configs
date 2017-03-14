@@ -34,5 +34,24 @@ config.vm.provision "ansible" do |ansible|
 end
 ```
 
+### Playbooks
+
+#### bind-install.yml
+Purpose: Install Bind DNS for core blackteam infrastructure and copy <br />
+pre-made configs onto Ubuntu based Bind server.
+
+#### docker-install.yml
+Purpose: Install Docker via Docker's bootstrap script.
+* Q) Why not use repos?
+* A) Old versions of Docker do not support some features used in NECCDC.
+
+#### nginx-loadbalancer.yml
+Purpose: Install Nginx on Gentoo.
+* Q) Why did you just use "shell" commands via Ansible?
+* A) Ansible's portage at this time of writing is was not sufficient.
+
+#### ubuntu-misconfiguration.yml
+Purpose: Boot strap ubuntu with various configurations that can have security consequences.
+
 ### TODO
 * Get custom webapp from Chaim to put in container.
