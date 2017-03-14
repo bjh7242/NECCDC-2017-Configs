@@ -7,10 +7,7 @@ ec2-54-172-147-128.compute-1.amazonaws.com
 ec2-34-207-113-123.compute-1.amazonaws.com
 
 [loadbalancer_1]
-ec2-54-237-231-204.compute-1.amazonaws.com
-#ec2-34-207-229-17.compute-1.amazonaws.com
-#ec2-34-207-248-2.compute-1.amazonaws.com
-#ec2-52-87-175-213.compute-1.amazonaws.com
+ec2-107-21-32-79.compute-1.amazonaws.com
 
 [swarm_manager_team_1]
 ec2-54-157-243-197.compute-1.amazonaws.com
@@ -22,13 +19,13 @@ ec2-34-207-113-123.compute-1.amazonaws.com
 ##### Team 2
 #####
 [all_team2]
-ec2-52-54-80-14.compute-1.amazonaws.com
+ec2-54-173-95-105.compute-1.amazonaws.com
 ec2-34-207-103-248.compute-1.amazonaws.com
 ec2-54-145-183-218.compute-1.amazonaws.com
 ec2-54-91-64-179.compute-1.amazonaws.com
 
 [loadbalancer_2]
-ec2-52-54-80-14.compute-1.amazonaws.com
+ec2-54-173-95-105.compute-1.amazonaws.com
 
 [swarm_manager_team_2]
 ec2-34-207-103-248.compute-1.amazonaws.com
@@ -46,7 +43,8 @@ ec2-54-236-232-16.compute-1.amazonaws.com
 ec2-54-197-123-117.compute-1.amazonaws.com
 
 [loadbalancer_3]
-ec2-54-144-82-182.compute-1.amazonaws.com
+ec2-54-208-238-62.compute-1.amazonaws.com
+#ec2-54-144-82-182.compute-1.amazonaws.com
 
 [swarm_manager_team_3]
 ec2-107-23-103-206.compute-1.amazonaws.com
@@ -64,7 +62,7 @@ ec2-54-196-8-206.compute-1.amazonaws.com
 ec2-184-73-59-200.compute-1.amazonaws.com
 
 [loadbalancer_4]
-ec2-54-221-136-10.compute-1.amazonaws.com
+184.72.108.232
 
 [swarm_manager_team_4]
 ec2-52-91-88-114.compute-1.amazonaws.com
@@ -83,7 +81,7 @@ ec2-54-172-222-44.compute-1.amazonaws.com
 ec2-54-224-51-26.compute-1.amazonaws.com
 
 [loadbalancer_5]
-ec2-52-91-126-201.compute-1.amazonaws.com
+52.86.36.87
 
 [swarm_manager_team_5]
 ec2-54-196-34-134.compute-1.amazonaws.com
@@ -101,7 +99,7 @@ ec2-54-92-235-124.compute-1.amazonaws.com
 ec2-54-86-85-117.compute-1.amazonaws.com
 
 [loadbalancer_6]
-ec2-52-86-90-235.compute-1.amazonaws.com
+54.89.125.26
 
 [swarm_manager_team_6]
 ec2-54-242-40-219.compute-1.amazonaws.com
@@ -120,7 +118,7 @@ ec2-54-91-44-241.compute-1.amazonaws.com
 ec2-52-201-251-74.compute-1.amazonaws.com
 
 [loadbalancer_7]
-ec2-107-22-62-5.compute-1.amazonaws.com
+54.173.56.152
 
 [swarm_manager_team_7]
 ec2-54-89-242-216.compute-1.amazonaws.com
@@ -138,7 +136,7 @@ ec2-54-167-187-223.compute-1.amazonaws.com
 ec2-52-54-233-33.compute-1.amazonaws.com
 
 [loadbalancer_8]
-ec2-54-163-176-189.compute-1.amazonaws.com
+54.145.129.176
 
 [swarm_manager_team_8]
 ec2-54-210-251-103.compute-1.amazonaws.com
@@ -156,7 +154,7 @@ ec2-54-82-139-162.compute-1.amazonaws.com
 ec2-34-207-232-201.compute-1.amazonaws.com
 
 [loadbalancer_9]
-ec2-54-146-110-123.compute-1.amazonaws.com
+52.23.153.102
 
 [swarm_manager_team_9]
 ec2-52-90-167-86.compute-1.amazonaws.com
@@ -175,7 +173,7 @@ ec2-34-207-113-123.compute-1.amazonaws.com
 ec2-54-172-147-128.compute-1.amazonaws.com
 
 [loadbalancer_10]
-ec2-52-87-175-213.compute-1.amazonaws.com
+54.242.238.245
 
 [swarm_manager_team_10]
 ec2-54-157-243-197.compute-1.amazonaws.com
@@ -237,19 +235,16 @@ ec2-34-207-113-123.compute-1.amazonaws.com
 ec2-54-172-147-128.compute-1.amazonaws.com
 
 [gentooprod] # All Gentoo AWS boxes.
-ec2-54-237-231-204.compute-1.amazonaws.com
-#ec2-34-207-229-17.compute-1.amazonaws.com
-#ec2-34-207-248-2.compute-1.amazonaws.com
-#ec2-107-20-53-231.compute-1.amazonaws.com
-ec2-54-221-136-10.compute-1.amazonaws.com
-ec2-52-91-126-201.compute-1.amazonaws.com
-ec2-52-86-90-235.compute-1.amazonaws.com
-ec2-107-22-62-5.compute-1.amazonaws.com
-ec2-54-163-176-189.compute-1.amazonaws.com
-ec2-54-146-110-123.compute-1.amazonaws.com
-ec2-52-87-175-213.compute-1.amazonaws.com
-ec2-54-144-82-182.compute-1.amazonaws.com
-ec2-52-54-80-14.compute-1.amazonaws.com
+107.21.32.79
+54.173.95.105
+54.208.238.62
+184.72.108.232
+52.86.36.87
+54.89.125.26
+54.173.56.152
+54.145.129.176
+52.23.153.102
+54.242.238.245
 
 [ubuntuprod] # All blueteam Ubuntu AWS boxes.
 ec2-54-172-147-128.compute-1.amazonaws.com
