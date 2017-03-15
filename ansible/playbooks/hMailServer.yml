@@ -1,0 +1,52 @@
+- hosts: hmail
+  gather_facts: no
+  remote_user: admin
+
+  tasks:
+      - name: Upload .NET feature config file
+        win_copy: 
+          src: conf/dotnetfeatureinstall.xml
+          dest: C:\dotnetfeatureinstall.xml
+
+      - name: Execute .NET powershell installer script
+        script: scripts/hmailinstall.ps1
+
+      - name: Upload hMail executable
+        win_copy:
+          src: exe/hMailServer-5.6.6-B2383.exe
+          dest: C:\hMailServer-5.6.6-B2383.exe
+
+      - name: Upload hMail executable
+        win_copy:
+          src: exe/hMailServer-4.4.4-B287.exe
+          dest: C:\hMailServer-4.4.4-B287.exe
+
+      - name: Upload MySQL Server installer
+        win_copy:
+          src: exe/mysql-installer-web-community-5.6.35.0.msi
+          dest: C:\mysql-installer-web-community-5.6.35.0.msi
+
+#      - name: Create .NET installer script
+#        win_shell: Install-WindowsFeature -ConfigurationFilePath C:\dotnetfeatureinstall.xml
+
+#      - name: Install MySQL
+#        win_shell: C:\mysql-installer-web-community-5.6.35.0.msi /norestart /quiet
+#
+#      - name: hMail silent install
+#        raw: C:\hMailServer-5.6.6-B2383.exe /verysilent /loadinf=C:\hmailconfig.ini /password="Netsys123$"
+#
+#      - name: Delete hMail installer
+#        win_file:
+#          path: C:\hMailServer-5.6.6-B2383.exe
+#          state: absent
+#
+#      - name: Delete MySQL Installer
+#        win_file:
+#          path: C:\mysql-installer-web-community-5.6.35.0.msi
+#          state: absent
+#        
+      - name: Delete dotnetfeatureinstall.xml
+        win_file:
+          path: C:\dotnetfeatureinstall.xml
+          state: absent
+
