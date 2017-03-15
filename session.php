@@ -7,7 +7,6 @@ if(isset($_COOKIE["PHPSESSID"])){
 	if($result = $link->query($sql)){
 		if($result->num_rows >= 1){
 			$row = $result->fetch_array(MYSQLI_ASSOC);
-			print_r($row);
 			$session['logged_in'] = True;
 			$session['username'] = $row['username'];
 			$session['uid'] = $row['uid'];

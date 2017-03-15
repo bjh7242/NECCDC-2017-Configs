@@ -12,6 +12,7 @@
 			echo '
                         <li class="navlink"><a href="index.php?page=my_fantasy.php">My Fantasy</a></li>
                         <li class="navlink"><a href="index.php?page=settings.php">Settings</a></li>
+			<li class="navlink"><a href="index.php?page=my_team.php">My Team</a></li>
 			';
 			}?>
 		</ul>

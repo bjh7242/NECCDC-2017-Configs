@@ -163,7 +163,7 @@ $(document).ready(function (){
          <th>Height</th>
          <th>Bats</th>
          <th>Throws</th>
-
+	 <th>Team ID</th>
       </tr>
 
    </thead>
@@ -176,6 +176,7 @@ $(document).ready(function (){
          <th>Height</th>
          <th>Bats</th>
          <th>Throws</th>
+	 <th>Team ID</th>
       </tr>
    </tfoot>
 
