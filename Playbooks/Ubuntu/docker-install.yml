@@ -1,0 +1,36 @@
+---
+- hosts: ubuntuprod
+
+  tasks:
+      - name: Installing Latest Docker Stack.
+        shell: curl -fsSL https://get.docker.com/ | sh
+        become: yes
+        become_user: root
+        tags: install_docker
+
+      - name: Copy Docker container to remote host.
+        copy: src=../Dockerfile dst=/tmp/Dockerfile
+        become: yes
+        become_user: root
+        tags: copy_dockerbuild
+
+      - name: Dockerbuild
+        raw: cd /tmp/; docker build . -t ccdc\www
+        become: yes
+        become_user: root
+        tags: build_dockerwebapp
+
+      - name: Remove dockerbuild file
+        raw: rm /tmp/Dockerfile
+        become: yes
+        become_user: root
+        tags: remove_dockerbuild 
+
+# Import Docker image.
+#- hosts: container_hosts
+#  tasks:
+#	  - name: Importing Docker Image
+#		command: docker import /tmp/docker-www-prod.tar.gz	
+##		become: yes
+#		become_user: root
+#

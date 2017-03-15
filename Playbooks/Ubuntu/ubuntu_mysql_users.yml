@@ -1,0 +1,19 @@
+---
+- hosts: swarm_manager_team_10
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: MySQL Server Config Copy
+        copy: src=../Configs/MySQL/mysql_add_users.sql dest=/tmp/mysql_add_users.sql
+        tags: mysql_server_config
+
+      - name: Change root password/connection string
+        mysql_db: name=all state=import target=/tmp/mysql_add_users.sql
+        tags: import_users
+
+      - name: Remove MySQL file.
+        shell: rm /tmp/mysql_add_users.sql
+        become: yes
+        become_user: root
+        tags: clear_tmp
