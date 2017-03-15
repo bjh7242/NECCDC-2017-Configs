@@ -15,5 +15,11 @@
                 echo "Debugging errno: " . mysqli_connect_errno();
                 exit();
         }
+        $link3 = mysqli_connect($settings['dbhost'], $settings['dbuname'], $settings['dbpass'], $settings['dbname3']);
+        if (!$link3) {
+                echo "Debugging errno: " . mysqli_connect_errno();
+                exit();
+        }
+
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 include_once('common.php');
-include_once('session');
+include_once('session.php');
 $sql = "SELECT * FROM posts ORDER BY pid DESC limit 1";
 if($result = $link->query($sql)){
 	$row = $result->fetch_array(MYSQLI_ASSOC);

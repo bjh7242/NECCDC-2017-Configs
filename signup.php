@@ -32,6 +32,9 @@ $( document ).ready(function() {
       var dat = $(this).serializeArray();
       $.post( "add_user.php", dat, function( data ) {
       	$("#result").html(data);
+	setTimeout(function() {
+		window.location.href = 'index.php?page=signin.html'; 
+	}, 2000);
       });
     }
   });
