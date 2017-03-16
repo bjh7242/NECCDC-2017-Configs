@@ -1,4 +1,4 @@
-param([string]$dn, [string]$dnsroot)
+param([string]$dnsroot)
 #$domain = Get-ADDomain 
 # 
 # The base DN for accounts (DC=example,DC=com): 
@@ -27,7 +27,7 @@ Import-Csv -Path C:\useraccounts.csv | % {
  $hmact.Active = $true 
  $hmact.IsAD = $true 
  #$hmact.MaxSize = $hmail_maxsize 
- $hmact.ADDomain = $dn 
+ $hmact.ADDomain = $dnsroot
  $hmact.ADUsername = $_.bref_id
  #$hmact.PersonFirstName = $fn 
  #$hmact.PersonLastName = $ln 
