@@ -12,6 +12,7 @@ windows,linux,domain-controllers,windows-clients,foreman
 
 
 [linux:children]
+ftpservers
 foreman
 
 
@@ -26,6 +27,7 @@ adbindpassword='@dBindP@$$w0rd1357_'
 
 [windows:children]
 domain-controllers
+hmail
 #windows-clients
 
 
@@ -38,7 +40,7 @@ ansible_port=5985
 
 [domain-controllers]
 10.0.0.40	domainname=f-sports0.co  netbiosname=F-SPORTS0  adbackuppass=Netsys1231$  team_number=0
-#10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
+10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
 #10.0.2.40	domainname=f-sports2.co  netbiosname=F-SPORTS2  adbackuppass=Netsys1233$  team_number=2
 #10.0.3.40	domainname=f-sports3.co  netbiosname=F-SPORTS3  adbackuppass=Netsys1234$  team_number=3
 #10.0.4.40	domainname=f-sports4.co  netbiosname=F-SPORTS4  adbackuppass=Netsys1235$  team_number=4
@@ -51,8 +53,46 @@ ansible_port=5985
 
 
 [windows-clients]
-10.0.0.10	domainname=f-sports0.co  domaincontrollerip='10.0.0.40'  username='f-sports0\admin'  password=Netsys123$
-10.0.1.10	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+10.0.1.4	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+10.0.1.5	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+10.0.1.6	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+10.0.1.7	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\admin'  password=Netsys123$
+10.0.2.4	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\admin'  password=Netsys123$
+10.0.2.5	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\admin'  password=Netsys123$
+10.0.2.6	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\admin'  password=Netsys123$
+10.0.2.7	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\admin'  password=Netsys123$
+10.0.3.4	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\admin'  password=Netsys123$
+10.0.3.5	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\admin'  password=Netsys123$
+10.0.3.6	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\admin'  password=Netsys123$
+10.0.3.7	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\admin'  password=Netsys123$
+10.0.4.4	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\admin'  password=Netsys123$
+10.0.4.5	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\admin'  password=Netsys123$
+10.0.4.6	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\admin'  password=Netsys123$
+10.0.4.7	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\admin'  password=Netsys123$
+10.0.5.4	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\admin'  password=Netsys123$
+10.0.5.5	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\admin'  password=Netsys123$
+10.0.5.6	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\admin'  password=Netsys123$
+10.0.5.7	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\admin'  password=Netsys123$
+10.0.6.4	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\admin'  password=Netsys123$
+10.0.6.5	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\admin'  password=Netsys123$
+10.0.6.6	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\admin'  password=Netsys123$
+10.0.6.7	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\admin'  password=Netsys123$
+10.0.7.4	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\admin'  password=Netsys123$
+10.0.7.5	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\admin'  password=Netsys123$
+10.0.7.6	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\admin'  password=Netsys123$
+10.0.7.7	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\admin'  password=Netsys123$
+10.0.8.4	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\admin'  password=Netsys123$
+10.0.8.5	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\admin'  password=Netsys123$
+10.0.8.6	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\admin'  password=Netsys123$
+10.0.8.7	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\admin'  password=Netsys123$
+10.0.9.4	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\admin'  password=Netsys123$
+10.0.9.5	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\admin'  password=Netsys123$
+10.0.9.6	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\admin'  password=Netsys123$
+10.0.9.7	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\admin'  password=Netsys123$
+10.0.10.4	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\admin'  password=Netsys123$
+10.0.10.5	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\admin'  password=Netsys123$
+10.0.10.6	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\admin'  password=Netsys123$
+10.0.10.7	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\admin'  password=Netsys123$
 
 
 [foreman]
@@ -84,4 +124,29 @@ ansible_port=5985
 
 
 [hmail]
-10.0.0.21
+10.0.0.20
+#10.0.1.20
+#10.0.2.20
+#10.0.3.20
+#10.0.4.20
+#10.0.5.20
+#10.0.6.20
+#10.0.7.20
+#10.0.8.20
+#10.0.9.20
+#10.0.10.20
+
+
+[ftpservers]
+10.0.0.22 domainpassword=Netsys123$ domainname=f-sports0.co
+#10.0.1.22
+#10.0.2.22
+#10.0.3.22
+#10.0.4.22
+#10.0.5.22
+#10.0.6.22
+#10.0.7.22
+#10.0.8.22
+#10.0.9.22
+#10.0.10.22
+
