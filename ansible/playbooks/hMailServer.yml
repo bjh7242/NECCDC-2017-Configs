@@ -26,6 +26,11 @@
           src: exe/mysql-installer-web-community-5.6.35.0.msi
           dest: C:\mysql-installer-web-community-5.6.35.0.msi
 
+      - name: Upload MySQL Server installer
+        win_copy:
+          src: scripts/useraccounts.csv
+          dest: C:\useraccounts.csv
+
 #      - name: Create .NET installer script
 #        win_shell: Install-WindowsFeature -ConfigurationFilePath C:\dotnetfeatureinstall.xml
 
@@ -50,3 +55,7 @@
           path: C:\dotnetfeatureinstall.xml
           state: absent
 
+#      - name: Delete useraccounts.csv
+#        win_file:
+#          path: C:\useraccounts.csv
+#          state: absent
