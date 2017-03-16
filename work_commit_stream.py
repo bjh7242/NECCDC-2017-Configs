@@ -23,7 +23,9 @@ with open('commit_stream', 'r') as fo:
     for line in fo.readlines():
         commit_list.append(line.strip())
 
-number_of_teams = 2
+git_servers_urls = {
+    'black': 'git@github.com:bjh7242/NECCDC-2017-Configs.git',
+}
 
 # Change to a different repo we are working out of.
 os.chdir("./remote_repo")
@@ -31,13 +33,17 @@ os.chdir("./remote_repo")
 if not os.path.isfile("initialized"):
     # Change to a different repo we are working out of.
 
-    for team in range(1, number_of_teams+1):
+    for team, url in git_servers_urls.iteritems():
         # Create the branch for the team
-        subprocess.call(['git', 'checkout', '--orphan', 'team-{0}-master'.format(team)])
+        subprocess.call(['git', 'checkout', '--orphan',
+            'team-{0}-master'.format(team)])
+
+        print "Team {0} URL is {1}".format(team, url)
+
         # Push it to the team's server/master branch and track it
-        #subprocess.call([
-        #    'git', 'remote', 'add', 'team-{}'.format(team), 'team git reference'
-        #])
+        subprocess.call([
+            'git', 'remote', 'add', 'team-{}'.format(team), url
+        ])
 
         commit = '5ced9f0ee2180d636225a1fd8563eea169312ac3'
 
@@ -47,11 +53,12 @@ if not os.path.isfile("initialized"):
         subprocess.call(['git', 'commit', '--amend', '--no-edit', '--date=now'])
 
         # Push and set the upstream
-        #subprocess.call(['git', 'push', '--set-upstream',
-        #    'team-{}/master'.format(team), 'team-{0}-master'.format(team)])
+        subprocess.call([
+            'git', 'push', '--set-upstream', 'team-{}'.format(team),
+            'team-{}-master:master_test_test'.format(team)])
+                            # This needs to be set to master for prod
 
-        subprocess.call(['git', 'push', '--set-upstream', 'origin', 'team-{0}-master'.format(team)])
-        
+
     with open('initialized', 'w') as fo:
         fo.write(commit + '\n')
 
@@ -76,16 +83,21 @@ for commit in commit_list:
         found_last_commit = True
 
 for commit in new_commits:
-    for team in range(1, number_of_teams+1):
+    for team in git_servers_urls.keys():
         subprocess.call(['git', 'checkout', 'team-{0}-master'.format(team)])
         subprocess.call(['git', 'pull'])
         subprocess.call(['git', 'checkout', commit, '--', '.'])
         subprocess.call(['git', 'commit', '--reuse-message={}'.format(commit)])
         subprocess.call(['git', 'commit', '--amend', '--no-edit', '--date=now'])
-        
-        subprocess.call(['git', 'push', '-f'])
+       
+        # Force push.
+        subprocess.call(
+                ['git', 'push', '-f', 'team-{0}'.format(team), 'HEAD:master_test_test']
+        )
         last_commit = commit
 
     with open('initialized', 'a') as fo:
         fo.write(last_commit + '\n')
+
+    # Only do one commit at a time.
     break
