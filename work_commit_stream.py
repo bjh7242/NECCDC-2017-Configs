@@ -30,6 +30,9 @@ git_servers_urls = {
 # Change to a different repo we are working out of.
 os.chdir("./remote_repo")
 
+remote_branch_name = 'master'
+remote_branch_name = 'master_test_test2'
+
 if not os.path.isfile("initialized"):
     # Change to a different repo we are working out of.
 
@@ -55,9 +58,7 @@ if not os.path.isfile("initialized"):
         # Push and set the upstream
         subprocess.call([
             'git', 'push', '--set-upstream', 'team-{}'.format(team),
-            'team-{}-master:master_test_test'.format(team)])
-                            # This needs to be set to master for prod
-
+            'team-{}-master:{}'.format(team, remote_branch_name)])
 
     with open('initialized', 'w') as fo:
         fo.write(commit + '\n')
@@ -92,7 +93,8 @@ for commit in new_commits:
        
         # Force push.
         subprocess.call(
-                ['git', 'push', '-f', 'team-{0}'.format(team), 'HEAD:master_test_test']
+                ['git', 'push', '-f', 'team-{0}'.format(team),
+                    'HEAD:{}'.format(remote_branch_name)]
         )
         last_commit = commit
 
