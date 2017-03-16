@@ -44,6 +44,7 @@ if not os.path.isfile("initialized"):
         # Checkout the Initial Commit
         subprocess.call(['git', 'checkout', commit, '--', '.'])
         subprocess.call(['git', 'commit', '--reuse-message={}'.format(commit)])
+        subprocess.call(['git', 'commit', '--amend', '--no-edit', '--date=now'])
 
         # Push and set the upstream
         #subprocess.call(['git', 'push', '--set-upstream',
@@ -80,6 +81,8 @@ for commit in new_commits:
         subprocess.call(['git', 'pull'])
         subprocess.call(['git', 'checkout', commit, '--', '.'])
         subprocess.call(['git', 'commit', '--reuse-message={}'.format(commit)])
+        subprocess.call(['git', 'commit', '--amend', '--no-edit', '--date=now'])
+        
         subprocess.call(['git', 'push', '-f'])
         last_commit = commit
 
