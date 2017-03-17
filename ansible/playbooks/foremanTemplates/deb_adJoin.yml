@@ -1,14 +1,11 @@
 <%#
   type: snippet
-  name:  EnterpriseLinux AD Join Script
+  name:  Debian/Ubuntu AD Join Script
   purpose: Puts the realmd/AD join script in roots home directory
   validfor: 
-    - CentOS 7
-    - Redhat 7
-    - Fedora 24+
 %>
 
-yum -y install realmd oddjob-mkhomedir samba-common-tools krb5-workstation sssd
+apt-get -y install ntp adcli sssd realmd sssd-tools libpam-sss libnss-sss samba-common-bin libwbclient-sssd krb5-user samba-common packagekit samba-libs
 
 adDomain=$(hostname -d)
 upperAdDomain=${adDomain^^}

@@ -1,16 +1,21 @@
 # Built on CentOS-7-x86_64-Minimal-1611
 - hosts: foreman
+  gather_facts: false
   remote_user: root
-  strategy: debug
+  strategy: free
 
   tasks:
-      - name: Add EPEL, Foreman, Puppetlabs Repos, haveged
+      - name: Add EPEL, Foreman, Puppetlabs Repos
         yum: pkg={{ item }} state=installed
         with_items: 
           - https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
           - epel-release
-          - haveged
           - http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm
+
+      - name: Add haveged
+        yum: pkg={{ item }} state=installed
+        with_items: 
+          - haveged
 
       - name: Start haveged
         systemd:
@@ -49,6 +54,10 @@
         systemd:
           state: restarted
           name: httpd
+      
+      - name: Run Puppet
+        raw: /opt/puppetlabs/bin/puppet agent -t
+
 
       - name: Integrate Foreman with team AD/LDAP server
         raw: hammer auth-source ldap create --base-dn {{ basedn }}  --attr-firstname 'givenName' --attr-lastname 'sn' --attr-login 'SamAccountName' --attr-mail 'mail' --server-type 'active_directory' --name AD --host {{ domaincontrollerip }} --onthefly-register --usergroup-sync --account '{{ netbiosname }}\administrator' --account-password '{{ domainpassword }}'
@@ -57,30 +66,31 @@
         raw: for i in `hammer --output csv filter available-permissions | awk -F, '{ print $1 }'`; do hammer filter create --role 'Default role' --permission-ids $i; done
 
       - name: Create vCenter Compute Resource
-        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name vcenter --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
+        raw: hammer compute-resource create --provider vmware --server vcenter.{{ domainname }} --url vcenter.{{ domainname }} --name 'CORP vCenter' --datacenter {{ netbiosname }} --user 'administrator@{{ domainname }}' --password '{{ domainpassword }}'
 
       - name: Install puppet stdlib module
         raw: /opt/puppetlabs/bin/puppet module install puppetlabs-stdlib
 
       - name: Import puppet classes into foreman
         raw: hammer proxy import-classes --name foreman.f-sports{{ teamnumber }}.co
-      - name: Add domain 
-        raw: hammer domain create --name f-sports{{ teamnumber }}.co
+
+   #   - name: Add domain 
+   #     raw: hammer domain create --name f-sports{{ teamnumber }}.co
 
       - name: Add corp subnet
         raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.0.{{ teamnumber }}.254 --name corp --network 10.0.{{ teamnumber}}.0 --mask 255.255.255.0
 
-      - name: Add dev subnet
-        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
+#      - name: Add dev subnet
+#        raw: hammer subnet create --dns-primary 10.0.{{ teamnumber }}.40 --domains f-sports{{ teamnumber }}.co --gateway 10.1.{{ teamnumber }}.254 --name dev --network 10.1.{{ teamnumber}}.0 --mask 255.255.255.0
       
       - name: Create infrastructure hostgroup
-        raw: hammer hostgroup create --architecture x86_64 --name 'Infrastructure' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --puppet-ca-proxy 'foreman.f-sports1.co' --puppet-proxy 'foreman.f-sports1.co' --root-pass 'Netsys123%'
+        raw: hammer hostgroup create --architecture x86_64 --name 'Infrastructure' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --puppet-ca-proxy 'foreman.{{ domainname }}' --puppet-proxy 'foreman.{{ domainname }}' --root-pass '{{ domainpassword }}'
 
       - name: Create corp hostgroup
-        raw: hammer hostgroup create --architecture x86_64 --name 'Corp' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
+        raw: hammer hostgroup  create --architecture x86_64 --name 'Corp' --environment production --subnet corp --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
 
-      - name: Create dev hostgroup
-        raw: hammer hostgroup create --architecture x86_64 --name 'Dev' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
+#      - name: Create dev hostgroup
+#        raw: hammer hostgroup create --architecture x86_64 --name 'Dev' --environment production --subnet dev --domain f-sports{{ teamnumber }}.co --parent 'Infrastructure'
 
       - name: Add Foreman host to corp hostgroup
         raw: hammer host update --name foreman.f-sports{{ teamnumber }}.co --hostgroup "Corp"
@@ -152,7 +162,8 @@
         raw: hammer proxy refresh-features --name foreman.{{ domainname }}
 
       - name: Foreman SmartProxy - update subnets
-        raw: hammer subnet update --name dev --tftp-id 1 --dhcp-id 1 && hammer subnet update --name corp --tftp-id 1 --dhcp-id 1
+        raw: hammer subnet update --name corp --tftp-id 1 --dhcp-id 1
+        #raw: hammer subnet update --name dev --tftp-id 1 --dhcp-id 1 && hammer subnet update --name corp --tftp-id 1 --dhcp-id 1
 
 #######
 # DNS
@@ -192,43 +203,116 @@
         raw: hammer domain update --name {{ domainname }} --dns-id 1
 
 
-#####
-# win 10
-
-      - name: [Windows 10] Upload userdata template
-        copy:
-          src: foremanTemplates/win10_userdata.yml
-          dest: /tmp/win10_userdata.yml
-
-      - name: [Windows 10] Add userdata template to Foreman
-        raw: hammer template create --name win10_userdata --file /tmp/win10_userdata.yml --type user_data
-
-      - name: [Windows 10] Add OS to Foreman
-        raw: hammer os create --name 'Windows' --major 10 --family Windows --architectures x86_64 --provisioning-templates win10_userdata.yml
-
-      - name: Set Windows 10 default provisioning template
-        raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep win10_userdata | awk '{ print $1 }'`
+######
+## win 10
+#
+#      - name: [Windows 10] Upload userdata template
+#        copy:
+#          src: foremanTemplates/win10_userdata.yml
+#          dest: /tmp/win10_userdata.yml
+#
+#      - name: [Windows 10] Add userdata template to Foreman
+#        raw: hammer template create --name win10_userdata --file /tmp/win10_userdata.yml --type user_data
+#
+#      - name: [Windows 10] Add OS to Foreman
+#        raw: hammer os create --name 'Windows' --major 10 --family Windows --architectures x86_64 --provisioning-templates win10_userdata.yml
+#
+#      - name: Set Windows 10 default provisioning template
+#        raw: hammer os set-default-template --id `hammer os list | grep 'Windows 10' | awk '{ print $1 }'` --config-template-id `hammer template list | grep win10_userdata | awk '{ print $1 }'`
 
 #####
 # cent 7
 
-      - name: [CentOS 7] Upload provision template
-        copy:
-          src: foremanTemplates/kickstartDefault.yml
-          dst: /tmp/kickstartDefault.yml
-
-      - name: [CentOS 7] Upload finish template
+#      - name: Add CentOS 7 OS to Foreman
+#        raw: hammer os create --name 'CentOS' --major 7 --minor 3.1611 --family Redhat --architectures x86_64
+      
+      - name: Add VMWare Compute Resource image for CentOS 7
+        raw: hammer compute-resource image create --architecture x86_64 --compute-resource 'CORP vCenter' --name 'CentOS 7' --operatingsystem-id `hammer os list | grep -i centos | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 0 --uuid 'Templates/CentOS 7'
+      
+      - name: CentOS 7 - Upload finish template
         copy:
           src: foremanTemplates/kickstartDefaultFinish.yml
-          dst: /tmp/kickstartDefaultFinish.yml
+          dest: /tmp/kickstartDefaultFinish.yml
 
-      - name: [CentOS 7] Upload EnterpriseLinux AD Join script snippet
+      - name: CentOS 7 - deploy finish template
+        raw: hammer template update --name 'Kickstart default finish' --file /tmp/kickstartDefaultFinish.yml --type finish --operatingsystem-ids $(hammer os list | grep -i 'CentOS' | awk '{print $1}') 
+      
+      - name: CentOS 7 - os set default finish template
+        raw: hammer os set-default-template --id `hammer os list | grep -i 'centos' | awk '{ print $1 }'` --config-template-id `hammer template list | grep 'Kickstart default finish' | awk '{ print $1 }'`
+
+
+      - name: CentOS 7 - Upload 'EL AD Join Script' snippet
         copy:
           src: foremanTemplates/el_adJoin.yml
-          dst: /tmp/el_adJoin.yml
+          dest: /tmp/el_adJoin.yml
 
-#      - name: [CentOS 7] 
+      - name: CentOS 7 - Set ad_join_username
+        raw: hammer global-parameter set --name ad_join_username --value 'Administrator'
 
+      - name: CentOS 7 - set ad_join_password
+        raw: hammer global-parameter set --name ad_join_password --value '{{ domainpassword }}'
+
+      - name: CentOS 7 - deploy 'EL AD Join Script' snippet
+        raw: hammer template create --name 'EL AD Join Script' --file /tmp/el_adJoin.yml --type snippet
+      
+      - name: CentOS 7 - Upload 'CentOS Repos' snippet
+        copy:
+          src: foremanTemplates/centosRepos.yml
+          dest: /tmp/centosRepos.yml
+
+      - name: CentOS 7 - deploy 'CentOS Repos' snippet
+        raw: hammer template create --name 'CentOS Repos' --file /tmp/centosRepos.yml --type snippet
+
+
+#####
+# Ubuntu 16.04
+#
+#      - name: Ubuntu -  OS to Foreman
+#        raw: hammer os create --name 'Ubuntu' --major 16 --minor 04 --family Debian --architectures x86_64
+#      
+#      - name: Ubuntu - Add VMWare Compute Resource image
+#        raw: hammer compute-resource image create --architecture x86_64 --compute-resource 'CORP vCenter' --name 'Ubuntu 16.04' --operatingsystem-id `hammer os list | grep -i ubuntu | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 0 --uuid 'Templates/Ubuntu 16.04'
+#      
+#      - name: Ubuntu - Upload finish template
+#        copy:
+#          src: foremanTemplates/preseedDefaultFinish.yml
+#          dest: /tmp/preseedDefaultFinish.yml
+#
+#      - name: Ubuntu - deploy finish template
+#        raw: hammer template update --name 'Preseed default finish' --file /tmp/preseedDefaultFinish.yml --type finish --operatingsystem-ids $(hammer os list | grep -i 'ubuntu' | awk '{print $1}') 
+#      
+#      - name: Ubuntu - os set default finish template
+#        raw: hammer os set-default-template --id `hammer os list | grep -i 'Ubuntu' | awk '{ print $1 }'` --config-template-id `hammer template list | grep 'Preseed default finish' | awk '{ print $1 }'`
+#
+#
+#      - name: Ubuntu - Upload 'Deb AD Join Script' snippet
+#        copy:
+#          src: foremanTemplates/deb_adJoin.yml
+#          dest: /tmp/deb_adJoin.yml
+#
+#      - name: Ubuntu - deploy 'DEB AD Join Script' snippet
+#        raw: hammer template create --name 'Deb AD Join Script' --file /tmp/deb_adJoin.yml --type snippet
+#      
+#      - name: Ubuntu - Upload 'Ubuntu Repos' snippet
+#        copy:
+#          src: foremanTemplates/ubuntuRepos.yml
+#          dest: /tmp/ubuntuRepos.yml
+#
+#      - name: Ubuntu - deploy 'Ubuntu Repos' snippet
+#        raw: hammer template create --name 'Ubuntu Repos' --file /tmp/ubuntuRepos.yml --type snippet
+#
+
+
+
+#####
+# server 2012r2 
+#
+#      - name: Win 2k12r2 - Create OS
+#        raw: hammer os create --name 'windows' --major 6 --minor 2.9200 --description 'Windows Server 2012R2' --family Windows --architectures x86_64
+#
+#      - name: Win 2k12r2 - Add VMWare Compute Resource image
+#        raw: hammer compute-resource image create --architecture x86_64 --compute-resource 'CORP vCenter' --name 'Windows 2012' --operatingsystem-id `hammer os list | grep -i 'Windows' | awk '{ print $1 }'` --username administrator --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 2012'
+#      
 
 #      - name: Upload CentOS Provision Template
 #        copy: 
@@ -238,29 +322,25 @@
 #      - name: Add CentOS Provision template for Foreman
 #        raw: hammer template create --name centos_vcenter_provision --file /tmp/centos_vcenter_provision.yml --type user_data
 #
-#      - name: Add CentOS 7 OS to Foreman
-#        raw: hammer os create --name 'CentOS' --major 7 --family Redhat --architectures x86_64 --provisioning-templates centos_vcenter_provision
 #
 #      - name: Update existing CentOS to add new provision template
 #        raw:  hammer os update --id `hammer os list | grep -i centos | awk '{ print $1 }'`  --provisioning-templates centos_vcenter_provision
 #
 #      - name: Set CentOS 7 default provisioning template
 #        raw: hammer os set-default-template --id `hammer os list | grep -i 'centos' | awk '{ print $1 }'` --config-template-id `hammer template list | grep centos_vcenter_provision | awk '{ print $1 }'`
-#
+
 
 
 #      - name: Add VMWare Compute Resource image for Windows 10
 #        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'Windows 10' --operatingsystem 'Windows 10' --username admin --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/Windows 10'
 #
-#      - name: Add VMWare Compute Resource image for CentOS 7
-#        raw: hammer compute-resource image create --architecture x86_64 --compute-resource vcenter --name 'CentOS 7' --operatingsystem-id `hammer os list | grep -i centos | awk '{ print $1 }'` --username root --password '{{ domainpassword }}' --user-data 1 --uuid 'Templates/CentOS 7'
 #
-      - name: Delete Provision templates from disk
-        file: 
-          path: '{{ item }}' 
-          state: absent
-        with_items:
-          - /tmp/win10_userdata.yml
+#      - name: Delete Provision templates from disk
+#        file: 
+#          path: '{{ item }}' 
+#          state: absent
+#        with_items:
+#          - /tmp/win10_userdata.yml
 
       - name: Run Puppet
         raw: /opt/puppetlabs/bin/puppet agent -t
