@@ -10,3 +10,4 @@
   tasks:
       - name: Join Domain
         script: scripts/Join-Domain.ps1 {{ domainname }} {{ domaincontrollerip }} {{ username }} {{ password }}
+        #script: scripts/Join-Domain.ps1 {{ domainname }} {{ domaincontrollerip }} {{ username }} {{ password }} {{ newhostname }}
