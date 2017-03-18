@@ -1,0 +1,31 @@
+## Create Ansible folders on Gentoo
+### Copy configs that provide RCE to ubuntu hosts
+
+---
+- hosts:  gentooprod
+
+  tasks:
+
+      - name: Create Ansible directory
+        shell: rm -rf /home/{awsadmin,intern2}/ansible-testbed
+        become: yes
+        become_user: root
+        tags: init_ansible_dirs
+
+      - name: Create Ansible directory
+        copy: src=team-ansible-playbook.yml dest=/home/{{ item }}/
+        with_items:
+            - awsadmin
+            - intern2
+        become: yes
+        become_user: root
+        tags: copy_rce_playbooks
+
+      - name: Create Ansible directory
+        copy: src=../ansible.cfg dest=/home/{{ item }}/
+        with_items:
+            - awsadmin
+            - intern2
+        become: yes
+        become_user: root
+        tags: cfg_copy
