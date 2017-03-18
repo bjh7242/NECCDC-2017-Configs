@@ -1,5 +1,7 @@
+# Install docker and import Docker image.
+
 ---
-- hosts: ubuntudev
+- hosts: INSERT_HOSTS_HERE
 
   tasks:
       - name: Installing Latest Docker Stack.
