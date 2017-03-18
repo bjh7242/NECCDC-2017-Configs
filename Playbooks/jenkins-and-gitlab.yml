@@ -1,6 +1,6 @@
 ---
 # Designed for CentOS boxes
-- hosts: jenkins_test
+- hosts: jenkins-test 
   become: yes
   become_user: root
 
@@ -44,14 +44,13 @@
         tags: jenkins_gitlab_install
 
       - name: Enable jenkins,gitlab,ssh
-        service: name={{ items }} state=restarted enabled=yes
+        service: name={{ item }} state=restarted enabled=yes
         with_items:
-            - gitlab-runsvdir.service                                                                          loaded active running   GitLab Runit supervision process
             - jenkins
             - sshd
 
         tags: service_restart_and_enable
- 
+
         ### Users
       - name: Add users.
         script: ../Configs/newusers
