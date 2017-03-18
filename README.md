@@ -1,6 +1,6 @@
 # Ansible Playbooks & Automation
 #### AWS Production Topology
-[AWS](NECCDC_AWS_Topology.PNG)
+![AWS](NECCDC_AWS_Topology.PNG)
 
 
 
