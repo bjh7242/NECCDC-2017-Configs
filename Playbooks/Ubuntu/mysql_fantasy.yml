@@ -1,0 +1,36 @@
+#### Copy and load PROD MySQL DBs
+
+---
+- hosts: INSERT_HOSTS_HERE
+  become: yes
+  become_user: root
+
+  tasks:
+
+      - name: baseball-copy
+        copy: src=../../Configs/MySQL/baseball.sql dest=/tmp/baseball.sql
+        tags: mysql_server_config
+
+      - name: baseball import
+        mysql_db: name=baseball state=import target=/tmp/baseball.sql
+        tags: import_users
+
+      - name: fsports -copy
+        copy: src=../../Configs/MySQL/f-sports.sql dest=/tmp/f-sports.sql
+        tags: mysql_server_config
+
+      - name: f-sports import
+        mysql_db: name=f-sports state=import target=/tmp/f-sports.sql
+        tags: import_users
+
+      - name: stats copy
+        copy: src=../../Configs/MySQL/stats.sql dest=/tmp/stats.sql
+        tags: mysql_server_config
+
+      - name: stats import
+        mysql_db: name=stats state=import target=/tmp/stats.sql
+        tags: import_users
+
+      - name: MySQL Service Restart
+        service: name=mysql state=restarted
+        tags: mysql_restart_service
