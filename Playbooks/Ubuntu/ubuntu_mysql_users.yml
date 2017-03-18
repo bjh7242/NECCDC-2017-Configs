@@ -1,11 +1,11 @@
 ---
-- hosts: swarm_manager_team_10
+- hosts: shit
   become: yes
   become_user: root
 
   tasks:
       - name: MySQL Server Config Copy
-        copy: src=../Configs/MySQL/mysql_add_users.sql dest=/tmp/mysql_add_users.sql
+        copy: src=../../Configs/MySQL/mysql_add_users.sql dest=/tmp/mysql_add_users.sql
         tags: mysql_server_config
 
       - name: Change root password/connection string
