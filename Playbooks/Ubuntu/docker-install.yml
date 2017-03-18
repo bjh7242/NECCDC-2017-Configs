@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntuprod
+- hosts: ubuntudev
 
   tasks:
       - name: Installing Latest Docker Stack.
@@ -9,28 +9,19 @@
         tags: install_docker
 
       - name: Copy Docker container to remote host.
-        copy: src=../Dockerfile dst=/tmp/Dockerfile
+        copy: src=fsports-stable dest=/tmp/fsports-stable
         become: yes
         become_user: root
         tags: copy_dockerbuild
 
-      - name: Dockerbuild
-        raw: cd /tmp/; docker build . -t ccdc\www
+      - name: Docker importing!
+        raw: docker import /tmp/fsports-stable fsports:stable
         become: yes
         become_user: root
-        tags: build_dockerwebapp
+        tags: import_docker
 
       - name: Remove dockerbuild file
-        raw: rm /tmp/Dockerfile
+        raw: rm /tmp/fsports-stable
         become: yes
         become_user: root
         tags: remove_dockerbuild 
-
-# Import Docker image.
-#- hosts: container_hosts
-#  tasks:
-#	  - name: Importing Docker Image
-#		command: docker import /tmp/docker-www-prod.tar.gz	
-##		become: yes
-#		become_user: root
-#
