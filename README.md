@@ -1,11 +1,6 @@
 # Ansible Playbooks & Automation
 #### AWS Production Topology
-![AWS](NECCDC_AWS_Topology.PNG)
-
-
-
-
-
+![AWS_NECCDC_2017](NECCDC_AWS_Topology.PNG)
 
 
 ## FAQ For Docker Beginners
@@ -25,7 +20,7 @@ docker import Docker_www_ccdc.tar.gz
 docker run -v /absolute/path/:/internal/docker/directory/ container:tag /executable/
 ```
 
-### How to build Docker container.
+### How to build Docker a container.
 
 ```
 docker build -t ccdc\www .
@@ -44,9 +39,9 @@ config.vm.provision "ansible" do |ansible|
 end
 ```
 
-### Playbooks
+### Ansible Playbooks
 
-### key-copy.yml
+#### key-copy.yml
 Purpose: copy public key to authorized key file of users on destination machine.
 * Q) Why is every user given the same key-pair?
 * A) This was meant as an exercise in handling key-revocaition.
@@ -82,10 +77,6 @@ Purpose: Boot strap ubuntu with various configurations that can have security co
 * Email adminteam0@fsports.co
 
 #### Gitlab
-1) Run the command below.
+1) Run the command below after making appropriate changes.
 ```
 sudo gitlab-ctl reconfigure
-```
-
-### TODO
-* Get custom webapp from Chaim to put in container.
