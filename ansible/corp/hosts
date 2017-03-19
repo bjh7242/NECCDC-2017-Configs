@@ -1,0 +1,230 @@
+[windows]
+10.0.0.40
+
+
+[linux]
+10.0.0.37
+
+
+[linux:children]
+ftpservers
+foreman
+ubuntu-clients
+linux-clients
+
+
+[linux:vars]
+ansible_connection=ssh
+ansible_user=root
+ansible_password=Netsys123$
+ansible_port=22
+adserviceaccount='adbind-service'
+adbindpassword='@dBindP@$$w0rd1357_'
+
+
+[windows:children]
+domain-controllers
+hmail
+windows-clients
+
+
+[windows:vars]
+ansible_connection=winrm
+ansible_user=Administrator
+ansible_password=Netsys123$
+ansible_port=5985
+
+
+[domain-controllers]
+10.0.0.40	domainname=f-sports0.co  netbiosname=F-SPORTS0  adbackuppass=Netsys1231$  team_number=0
+10.0.1.40	domainname=f-sports1.co  netbiosname=F-SPORTS1  adbackuppass=Netsys1232$  team_number=1
+10.0.2.40	domainname=f-sports2.co  netbiosname=F-SPORTS2  adbackuppass=Netsys1233$  team_number=2
+10.0.3.40	domainname=f-sports3.co  netbiosname=F-SPORTS3  adbackuppass=Netsys1234$  team_number=3
+10.0.4.40	domainname=f-sports4.co  netbiosname=F-SPORTS4  adbackuppass=Netsys1235$  team_number=4
+10.0.5.40	domainname=f-sports5.co  netbiosname=F-SPORTS5  adbackuppass=Netsys1236$  team_number=5
+10.0.6.40	domainname=f-sports6.co  netbiosname=F-SPORTS6  adbackuppass=Netsys1237$  team_number=6
+10.0.7.40	domainname=f-sports7.co  netbiosname=F-SPORTS7  adbackuppass=Netsys1238$  team_number=7
+10.0.8.40	domainname=f-sports8.co  netbiosname=F-SPORTS8  adbackuppass=Netsys1239$  team_number=8
+10.0.9.40	domainname=f-sports9.co  netbiosname=F-SPORTS9  adbackuppass=Netsys12310$  team_number=9
+10.0.10.40	domainname=f-sports10.co  netbiosname=F-SPORTS10  adbackuppass=Netsys12311$  team_number=10
+
+
+[windows-clients]
+10.0.1.4	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\administrator'  password=Netsys123$ newhostname=spearow
+10.0.1.5	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\administrator'  password=Netsys123$ newhostname=ekans
+10.0.1.6	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\administrator'  password=Netsys123$ newhostname=sandshrew
+10.0.1.7	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\administrator'  password=Netsys123$ newhostname=clefairy
+10.0.2.4	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$ newhostname=spearow
+10.0.2.5	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$
+10.0.2.6	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$
+10.0.2.7	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$
+10.0.3.4	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$ newhostname=spearow
+10.0.3.5	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$
+10.0.3.6	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$
+10.0.3.7	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$
+10.0.4.4	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$ newhostname=spearow
+10.0.4.5	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$
+10.0.4.6	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$
+10.0.4.7	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$
+10.0.5.4	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$ newhostname=spearow
+10.0.5.5	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$
+10.0.5.6	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$
+10.0.5.7	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$
+10.0.6.4	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$ newhostname=spearow
+10.0.6.5	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$
+10.0.6.6	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$
+10.0.6.7	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$
+10.0.7.4	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$ newhostname=spearow
+10.0.7.5	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$
+10.0.7.6	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$
+10.0.7.7	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$
+10.0.8.4	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$ newhostname=spearow
+10.0.8.5	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$
+10.0.8.6	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$
+10.0.8.7	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$
+10.0.9.4	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$ newhostname=spearow
+10.0.9.5	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$
+10.0.9.6	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$
+10.0.9.7	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$
+10.0.10.4	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$ newhostname=spearow
+10.0.10.5	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$
+10.0.10.6	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$
+10.0.10.7	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$
+10.0.2.20	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$
+10.0.3.20	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$
+10.0.4.20	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$
+10.0.5.20	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$
+10.0.6.20	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$
+10.0.7.20	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$
+10.0.8.20	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$
+10.0.9.20	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$
+10.0.10.20	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$
+10.0.1.12	domainname=f-sports1.co  domaincontrollerip='10.0.1.40'  username='f-sports1\administrator'  password=Netsys123$
+10.0.2.12	domainname=f-sports2.co  domaincontrollerip='10.0.2.40'  username='f-sports2\administrator'  password=Netsys123$
+10.0.3.12	domainname=f-sports3.co  domaincontrollerip='10.0.3.40'  username='f-sports3\administrator'  password=Netsys123$
+10.0.4.12	domainname=f-sports4.co  domaincontrollerip='10.0.4.40'  username='f-sports4\administrator'  password=Netsys123$
+10.0.5.12	domainname=f-sports5.co  domaincontrollerip='10.0.5.40'  username='f-sports5\administrator'  password=Netsys123$
+10.0.6.12	domainname=f-sports6.co  domaincontrollerip='10.0.6.40'  username='f-sports6\administrator'  password=Netsys123$
+10.0.7.12	domainname=f-sports7.co  domaincontrollerip='10.0.7.40'  username='f-sports7\administrator'  password=Netsys123$
+10.0.8.12	domainname=f-sports8.co  domaincontrollerip='10.0.8.40'  username='f-sports8\administrator'  password=Netsys123$
+10.0.9.12	domainname=f-sports9.co  domaincontrollerip='10.0.9.40'  username='f-sports9\administrator'  password=Netsys123$
+10.0.10.12	domainname=f-sports10.co  domaincontrollerip='10.0.10.40'  username='f-sports10\administrator'  password=Netsys123$
+
+
+[foreman]
+10.0.0.37 domainname=f-sports0.co domaincontrollerip='10.0.0.40' basedn='dc=f-sports0,dc=co' netbiosname=f-sports0 teamnumber=0  domainpassword='Netsys123$'
+10.0.1.37 domainname=f-sports1.co domaincontrollerip='10.0.1.40' basedn='dc=f-sports1,dc=co' netbiosname=f-sports1 teamnumber=1  domainpassword='Netsys123$'
+10.0.2.37 domainname=f-sports2.co domaincontrollerip='10.0.2.40' basedn='dc=f-sports2,dc=co' netbiosname=f-sports2 teamnumber=2  domainpassword='Netsys123$'
+10.0.3.37 domainname=f-sports3.co domaincontrollerip='10.0.3.40' basedn='dc=f-sports3,dc=co' netbiosname=f-sports3 teamnumber=3  domainpassword='Netsys123$'
+10.0.4.37 domainname=f-sports4.co domaincontrollerip='10.0.4.40' basedn='dc=f-sports4,dc=co' netbiosname=f-sports4 teamnumber=4  domainpassword='Netsys123$'
+10.0.5.37 domainname=f-sports5.co domaincontrollerip='10.0.5.40' basedn='dc=f-sports5,dc=co' netbiosname=f-sports5 teamnumber=5  domainpassword='Netsys123$'
+10.0.6.37 domainname=f-sports6.co domaincontrollerip='10.0.6.40' basedn='dc=f-sports6,dc=co' netbiosname=f-sports6 teamnumber=6  domainpassword='Netsys123$'
+10.0.7.37 domainname=f-sports7.co domaincontrollerip='10.0.7.40' basedn='dc=f-sports7,dc=co' netbiosname=f-sports7 teamnumber=7  domainpassword='Netsys123$'
+10.0.8.37 domainname=f-sports8.co domaincontrollerip='10.0.8.40' basedn='dc=f-sports8,dc=co' netbiosname=f-sports8 teamnumber=8  domainpassword='Netsys123$'
+10.0.9.37 domainname=f-sports9.co domaincontrollerip='10.0.9.40' basedn='dc=f-sports9,dc=co' netbiosname=f-sports9 teamnumber=9  domainpassword='Netsys123$'
+10.0.10.37 domainname=f-sports10.co domaincontrollerip='10.0.10.40' basedn='dc=f-sports10,dc=co' netbiosname=f-sports10 teamnumber=10  domainpassword='Netsys123$'
+
+
+[esxi-hosts]
+10.0.0.30 domaincontrollerip=10.0.0.40
+10.0.1.30 domaincontrollerip=10.0.1.40
+10.0.2.30 domaincontrollerip=10.0.2.40
+10.0.3.30 domaincontrollerip=10.0.3.40
+10.0.4.30 domaincontrollerip=10.0.4.40
+10.0.5.30 domaincontrollerip=10.0.5.40
+10.0.6.30 domaincontrollerip=10.0.6.40
+10.0.7.30 domaincontrollerip=10.0.7.40
+10.0.8.30 domaincontrollerip=10.0.8.40
+10.0.9.30 domaincontrollerip=10.0.9.40
+10.0.10.30 domaincontrollerip=10.0.10.40
+
+
+[hmail]
+10.0.1.20
+10.0.2.20
+10.0.3.20
+10.0.4.20
+10.0.5.20
+10.0.6.20
+10.0.7.20
+10.0.8.20
+10.0.9.20
+10.0.10.20
+
+
+[ftpservers]
+10.0.1.22
+10.0.2.22
+10.0.3.22
+10.0.4.22
+10.0.5.22
+10.0.6.22
+10.0.7.22
+10.0.8.22
+10.0.9.22
+10.0.10.22
+
+
+[linux-clients]
+# 10.0.X.37 --> foreman (DNS record is for machop)
+10.0.1.2    hostname=weedle
+10.0.1.3    hostname=pidgy
+10.0.1.8    hostname=rattata
+10.0.1.37   hostname=foreman domainname=f-sports1.co domainpassword=Netsys123$
+10.0.2.37   hostname=foreman domainname=f-sports2.co domainpassword=Netsys123$
+10.0.3.37   hostname=foreman domainname=f-sports3.co domainpassword=Netsys123$
+10.0.4.37   hostname=foreman domainname=f-sports4.co domainpassword=Netsys123$
+10.0.5.37   hostname=foreman domainname=f-sports5.co domainpassword=Netsys123$
+10.0.6.37   hostname=foreman domainname=f-sports6.co domainpassword=Netsys123$
+10.0.7.37   hostname=foreman domainname=f-sports7.co domainpassword=Netsys123$
+10.0.8.37   hostname=foreman domainname=f-sports8.co domainpassword=Netsys123$
+10.0.9.37   hostname=foreman domainname=f-sports9.co domainpassword=Netsys123$
+10.0.10.37   hostname=foreman domainname=f-sports10.co domainpassword=Netsys123$
+
+[ubuntu-clients]
+10.0.1.2    hostname=weedle
+10.0.1.3    hostname=pidgy
+10.0.1.8    hostname=rattata
+10.0.2.2    hostname=weedle
+10.0.2.3    hostname=pidgy
+10.0.2.8    hostname=rattata
+10.0.3.2    hostname=weedle
+10.0.3.3    hostname=pidgy
+10.0.3.8    hostname=rattata
+10.0.4.2    hostname=weedle
+10.0.4.3    hostname=pidgy
+10.0.4.8    hostname=rattata
+10.0.5.2    hostname=weedle
+10.0.5.3    hostname=pidgy
+10.0.5.8    hostname=rattata
+10.0.6.2    hostname=weedle
+10.0.6.3    hostname=pidgy
+10.0.6.8    hostname=rattata
+10.0.7.2    hostname=weedle
+10.0.7.3    hostname=pidgy
+10.0.7.8    hostname=rattata
+10.0.8.2    hostname=weedle
+10.0.8.3    hostname=pidgy
+10.0.8.8    hostname=rattata
+10.0.9.2    hostname=weedle
+10.0.9.3    hostname=pidgy
+10.0.9.8    hostname=rattata
+10.0.10.2    hostname=weedle
+10.0.10.3    hostname=pidgy
+10.0.10.8    hostname=rattata
+
+[ubuntu-clients:vars]
+ansible_user=administrator
+
+[smb-servers]
+10.0.1.12
+10.0.2.12
+10.0.3.12
+10.0.4.12
+10.0.5.12
+10.0.6.12
+10.0.7.12
+10.0.8.12
+10.0.9.12
+10.0.10.12
+

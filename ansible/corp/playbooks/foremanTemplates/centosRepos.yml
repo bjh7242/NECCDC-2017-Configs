@@ -1,0 +1,43 @@
+<%#
+  type: snippet
+  name:  CentOS Repos
+  purpose: sets the correct (local) mirrors for CentOS repositories
+  validfor: 
+    - CentOS 7
+%>
+
+cd /etc/yum.repos.d/
+rm -f *
+
+cat <<'EOF' > centos.repo
+[base]
+name=CentOS-$releasever - Base
+baseurl=http://mirror.core.co/centos/$releasever/os/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+#released updates
+[updates]
+name=CentOS-$releasever - Updates
+baseurl=http://mirror.core.co/centos/$releasever/updates/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras
+baseurl=http://mirror.core.co/centos/$releasever/extras/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+EOF
+
+cat <<'EOF' > epel.repo
+[epel]
+name=Extra Packages for Enterprise Linux 7 - $basearch
+baseurl=http://mirror.core.co/epel/7/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+EOF
+yum clean all

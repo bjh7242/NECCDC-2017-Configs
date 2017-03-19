@@ -1,0 +1,45 @@
+- hosts: hmail
+  gather_facts: no
+  remote_user: admin
+
+  tasks:
+      - name: Upload .NET feature config file
+        win_copy: 
+          src: conf/dotnetfeatureinstall.xml
+          dest: C:\dotnetfeatureinstall.xml
+
+      - name: Execute .NET powershell installer script
+        script: scripts/hmailinstall.ps1
+
+      - name: Upload hMail executable
+        win_copy:
+          src: exe/hMailServer-4.4.4-B287.exe
+          dest: C:\hMailServer-4.4.4-B287.exe
+
+      - name: Upload MySQL Server installer
+        win_copy:
+          src: exe/mysql-installer-web-community-5.6.35.0.msi
+          dest: C:\mysql-installer-web-community-5.6.35.0.msi
+
+      - name: Upload user accounts CSV
+        win_copy:
+          src: scripts/useraccounts.csv
+          dest: C:\useraccounts.csv
+
+      - name: Upload user add script
+        win_copy:
+          src: scripts/hmailusers.ps1
+          dest: C:\hmailusers.ps1
+
+      - name: Execute .NET powershell installer script
+        script: scripts/hmailusers.ps1 {{ domainname }} 
+
+      - name: Delete dotnetfeatureinstall.xml
+        win_file:
+          path: C:\dotnetfeatureinstall.xml
+          state: absent
+
+      - name: Delete useraccounts.csv
+        win_file:
+          path: C:\useraccounts.csv
+          state: absent

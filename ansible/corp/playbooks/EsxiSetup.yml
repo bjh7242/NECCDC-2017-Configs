@@ -1,0 +1,29 @@
+- hosts: esxi-hosts
+  gather_facts: no
+
+  tasks:
+      - name: Add file for VNC firewall rules
+        copy:
+          src: conf/vnc.xml
+          dest: /etc/vmware/firewall/vnc.xml
+          owner: root
+          group: root
+          mode: 0444
+
+      - name: Reset firewall
+        raw: esxcli network firewall refresh
+
+      - name: Allow HTTP/S Outbound
+        raw: esxcli network firewall ruleset set -e true -r httpClient
+
+      - name: Allow SSH client outbound
+        raw: esxcli network firewall ruleset set -e true -r sshClient
+
+      - name: Update DNS server settings
+        raw: esxcli network ip dns server remove -s `esxcli network ip dns server list | awk '{ print $2 }'` && esxcli network ip dns server add -s {{ domaincontrollerip }}
+
+      - name: Create ISOs directory
+        raw: mkdir /vmfs/volumes/datastore1/ISOs
+
+      - name: Download CentOS ISO
+        raw: wget -O /vmfs/volumes/datastore1/ISOs/CentOS-7-x86_64-Minimal-1611.iso http://mirrors.rit.edu/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso 

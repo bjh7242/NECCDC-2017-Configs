@@ -1,0 +1,9 @@
+- hosts: domain-controllers
+  gather_facts: no
+
+  tasks:
+      - name: Modify registry
+        raw: reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+      - name: Enable the Remote Desktop Service
+        raw: net start 'Remote Desktop Services'
