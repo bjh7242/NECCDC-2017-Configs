@@ -1,0 +1,90 @@
+---
+- hosts: loadbalancer_1
+  become: yes 
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-1.
+        copy: src=../Configs/Teams-LB/team-1.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_1
+
+- hosts: loadbalancer_2
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-2.
+        copy: src=../Configs/Teams-LB/team-2.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_2
+
+- hosts: loadbalancer_3
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-3.
+        copy: src=../Configs/Teams-LB/team-3.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_3
+
+- hosts: loadbalancer_4
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-4.
+        copy: src=../Configs/Teams-LB/team-4.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_4
+
+- hosts: loadbalancer_5
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-5.
+        copy: src=../Configs/Teams-LB/team-5.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_5
+
+- hosts: loadbalancer_6
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-6.
+        copy: src=../Configs/Teams-LB/team-6.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_6
+
+- hosts: loadbalancer_7
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-7.
+        copy: src=../Configs/Teams-LB/team-7.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_7
+
+- hosts: loadbalancer_8
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-8.
+        copy: src=../Configs/Teams-LB/team-8.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_8
+
+- hosts: loadbalancer_9
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-9.
+        copy: src=../Configs/Teams-LB/team-9.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_9
+
+- hosts: loadbalancer_10
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Copying Nginx LB file-LB-10.
+        copy: src=../Configs/Teams-LB/team-10.conf dest=/etc/nginx/nginx.conf mode=0777
+        tags: cp_nginx_lb_10

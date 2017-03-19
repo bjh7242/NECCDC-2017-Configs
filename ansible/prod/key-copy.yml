@@ -1,0 +1,240 @@
+---
+- hosts: loadbalancer_1
+  become: yes 
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-1
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-1/team1-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_1
+
+- hosts: loadbalancer_2
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-2
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-2/team2-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_2
+
+- hosts: loadbalancer_3
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-3
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-3/team3-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_3
+
+- hosts: loadbalancer_4
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-4
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-4/team4-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_4
+
+- hosts: loadbalancer_5
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-5
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-5/team5-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_5
+
+- hosts: loadbalancer_6
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-6
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-6/team6-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_6
+
+- hosts: loadbalancer_7
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-7
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-7/team7-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_7
+
+- hosts: loadbalancer_8
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-8
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-8/team8-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_8
+
+- hosts: loadbalancer_9
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-9
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-9/team9-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_9
+
+- hosts: loadbalancer_10
+  become: yes
+  become_user: root
+
+  tasks:
+      - name: Adding key to team-10
+        authorized_key: 
+           key: "{{ lookup('file', '../Configs/Team-Keys/Team-10/team10-aws.pub') }}"
+           user: "{{ item }}"
+           state: present
+        with_items:
+            - awsadmin
+            - cloudadmin
+            - mysqladmin
+            - mgmt
+            - bspringsteen
+            - rsyncadmin
+            - intern 
+            - intern2 
+            - jameson
+            - labron
+            - jdaniel
+        tags: add_gentoo_key_team_10

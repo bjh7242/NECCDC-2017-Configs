@@ -1,0 +1,113 @@
+#### Team 1
+####
+[ubuntu-1]
+
+[loadbalancer_1]
+
+[swarm_manager_team_1]
+
+[swarm_nodes_team_1]
+
+##### Team 2
+#####
+[all_team2]
+
+[loadbalancer_2]
+
+[swarm_manager_team_2]
+
+[swarm_nodes_team_2]
+
+##### Team 3
+#####
+[all_team3]
+
+[loadbalancer_3]
+
+[swarm_manager_team_3]
+
+[swarm_nodes_team_3]
+
+##### Team 4
+#####
+[all_team4]
+
+[loadbalancer_4]
+
+[swarm_manager_team_4]
+
+[swarm_nodes_team_4]
+
+
+##### Team 5
+#####
+[all_team5]
+
+[loadbalancer_5]
+
+[swarm_manager_team_5]
+
+[swarm_nodes_team_5]
+
+##### Team 6
+#####
+[all_team6]
+
+[loadbalancer_6]
+
+[swarm_manager_team_6]
+
+[swarm_nodes_team_6]
+
+
+##### Team 7
+#####
+[all_team7]
+
+[loadbalancer_7]
+
+[swarm_manager_team_7]
+
+[swarm_nodes_team_7]
+
+##### Team 8
+#####
+[all_team8]
+
+[loadbalancer_8]
+
+[swarm_manager_team_8]
+
+[swarm_nodes_team_8]
+
+#### Team 9
+#### 
+[all_team9]
+
+[loadbalancer_9]
+
+[swarm_manager_team_9]
+
+[swarm_nodes_team_9]
+
+
+#### Team 10
+####
+[all_team10]
+
+[loadbalancer_10]
+
+[swarm_manager_team_10]
+
+[swarm_nodes_team_10]
+
+####
+#### Misc Black Team Things
+####
+[all_aws_prod]
+
+[gentooprod] # All Gentoo AWS boxes.
+
+[ubuntuprod] # All blueteam Ubuntu AWS boxes.
+
+[ubantu] # Test ubuntu boxes

@@ -1,0 +1,9 @@
+---
+- hosts: dockerprod
+
+  tasks:
+
+      - name: just checking for uptime
+        shell: uptime; whoami;
+        become: yes
+        become_user: root

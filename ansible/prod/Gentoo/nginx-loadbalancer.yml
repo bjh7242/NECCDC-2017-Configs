@@ -1,0 +1,91 @@
+---
+- hosts:  gentooprod
+
+  tasks:
+      - name: Sync Portge.
+        shell: sudo emerge --sync
+        become: yes
+        become_user: root
+        tags: init_gentoo 
+
+      - name: Update Portage.
+        shell: sudo emerge portage
+        become: yes
+        become_user: root
+        tags: update_ports
+
+      - name: Install Vim.
+        shell: sudo emerge vim
+        become: yes
+        become_user: root
+        tags: install_vim
+
+      - name: Install Nginx.
+        shell: sudo emerge nginx 
+        become: yes
+        become_user: root
+        tags: install_nginx
+
+      - name: Install Syslog.
+        shell: sudo emerge app-admin/syslog-ng 
+        become: yes
+        become_user: root
+        tags: install_syslog
+
+      - name: Install Ansible.
+        shell: sudo emerge ansible
+        become: yes
+        become_user: root
+        tags: install_ansible
+
+      - name: Starting syslog.
+        shell: sudo systemctl start syslog-ng.service; sudo systemctl enable syslog-ng.service;
+        become: yes
+        become_user: root
+        tags: start_syslog 
+
+      - name: Add users.
+        script: ../Configs/newusers
+        become: yes
+        become_user: root
+        tags: add_users
+
+      - name: Modifying user permissions.
+        shell: "for user in awsadmin intern2 mysqladmin cloudadmin; do usermod -aG wheel $user; done"
+        become: yes
+        become_user: root
+        tags: mod_permissions
+
+      - name: sudoers modification
+        shell: "sudo sed /etc/sudoers -i -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/'"
+        become: yes
+        become_user: root
+        tags: give_wheel_power
+
+        #### SSH
+      - name: Permit root login via SSH.
+        shell: sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+        tags: root_login_allowed
+
+      - name: Restart sshd
+        shell: sudo systemctl restart sshd.service ### Ansible service module was not working on Gentoo.
+        become: yes
+        become_user: root
+
+      - name: Permit password login via SSH.
+        shell: sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+        become: yes
+        become_user: root
+        tags: password_login_allowed
+
+      - name: Change root password (Netsys123$)
+        user: name=root password=$1$rIkBBrmQ$mxLVk5RKnPFDAZU8Ra2EQ1
+        become: yes
+        become_user: root
+        tags: change_root_passwd
+        
+      - name: Clear bash history.
+        shell: echo "" > ~/.bash_history;
+        become: yes
+        become_user: root
+        tags: clear_bash
