@@ -8,6 +8,9 @@ This data was made public so that teams can prepare in their own labs for next y
 #### AWS Production Topology
 ![AWS_NECCDC_2017](NECCDC_AWS_Topology.PNG)
 
+#### AMIs
+* Gentoo Loadbalancer (Abra): ami-1360ce05
+* Docker hosts (Mankey/Growlith/Poliwag): ami-fe8c38e8
 
 ## FAQ For Docker Beginners
 
