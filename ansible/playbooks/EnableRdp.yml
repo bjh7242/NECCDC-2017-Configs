@@ -1,4 +1,5 @@
-- hosts: windows
+- hosts: domain-controllers
+  gather_facts: no
 
   tasks:
       - name: Modify registry
