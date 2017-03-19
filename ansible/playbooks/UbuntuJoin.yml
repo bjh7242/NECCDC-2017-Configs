@@ -1,0 +1,19 @@
+# This will upload the join script to all ubuntu-clients hosts
+# The script must be manually run in order to provide a team number and answer prompts from installing packages
+# The playbook can be run after running join.sh to delete the file on all ubuntu-clients by commenting out the last task
+- hosts: ubuntu-clients
+  gather_facts: no
+  remote_user: administrator
+
+  tasks:
+      - name: Upload join script
+        copy:
+          src: scripts/join.sh
+          dest: /tmp/join.sh
+          mode: 0755
+
+#      - name: Delete join script
+#        file: 
+#          path: /tmp/join.sh
+#          state: absent
+
