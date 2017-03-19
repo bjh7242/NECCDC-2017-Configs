@@ -1,0 +1,34 @@
+# After deploying the tar.gz file, you need to manually compile the binary and then make install it
+- hosts: ftpservers
+  remote_user: root
+  gather_facts: no
+
+  tasks:
+      - name: Install utils
+        yum: pkg={{ item }} state=installed
+        with_items:
+          - wget
+          - gcc
+          - binutils
+          - libcap-devel
+          - xinetd
+          - nss-pam-ldapd
+
+#      Exploit DB actually has the clean version of 2.3.4 :(
+#      - name: Remove cdrom as repo in sources.list
+#        raw: wget https://www.exploit-db.com/apps/2ea5d19978710527bb7444d93b67767a-vsftpd-2.3.4.tar.gz
+
+      - name: Upload vulnerable vsftpd
+        copy:
+          src: exe/2ea5d19978710527bb7444d93b67767a-vsftpd-2.3.4.tar.gz
+          dest: /tmp/vsftpd-2.3.4.tar
+
+      - name: Untar vsftpd
+        raw: tar zxvf /tmp/vsftpd-2.3.4.tar
+
+      - name: Install vsftpd dependencies
+        raw: yum deplist vsftpd | awk '/provider:/ {print $2}' | xargs yum -y install
+
+      - name: Stop and disable firewalld
+        raw: systemctl stop firewalld && systemctl disable firewalld
+
