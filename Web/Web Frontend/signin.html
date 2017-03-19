@@ -1,0 +1,49 @@
+<script>
+$( document ).ready(function() {
+	$("#login_form").submit(function(e){
+		e.preventDefault();
+		$.post( "login.php", $("#login_form").serialize(), function( data ) {
+			var data = jQuery.parseJSON(data)
+			var res = data.split(": ")
+			if(res[0] == "Success"){
+				$("#result").html("");
+				$("#result").fadeIn("slow");
+				$("#result").html("Login Succesfull");
+				$("#result").css('color', 'green');
+				setTimeout(function() {
+					$('#result').fadeOut("slow");
+				}, 5000);
+				document.location.href = "index.php";
+			}else{
+				$("#result").html("");
+				$("#result").fadeIn("slow");
+				$("#result").html("Login Failed: " + res[1]);
+				$("#result").css('color', 'red');
+				setTimeout(function() {
+					$('#result').fadeOut("slow");
+				}, 5000);
+			}
+		});
+	});
+
+});
+</script>
+<div id="content">
+	<div id="result"></div>
+	<table id="sign_table">
+		<tr>
+			<td><img width="100px" src="images/security.png" /></td>
+		<td>
+			<div id="login_box">
+
+				<form method="post" action="#" id="login_form" autocomplete="off">
+					<label for="username">Username:</label> <input type="text" id="username" name="username" value="" placeholder="username" maxlength="25" tabindex="1" /><br>
+					<label for="password">Password:</label> <input id="password" name="password" tabindex="2" placeholder="password" type="password"/><br /><br />
+					<input class="logon" value="Log On" type="submit"/>
+				</form>
+			</div>
+		</td>
+		</tr>
+	</table>
+<a href="index.php?page=signup.php">Don't have a username? Signup here!</a>
+</div>

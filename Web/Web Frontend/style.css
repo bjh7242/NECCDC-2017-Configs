@@ -1,0 +1,311 @@
+#header {
+	background-image: url("images/header.png");
+	background-repeat: repeat-x;
+	position: absolute;
+	left: -0px;
+	top: -0px;
+	width: 100%;
+	height: 108px;
+	z-index: 2;
+}
+
+.focus {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+.focus:focus {
+    border: 3px solid #555;
+}
+
+.bad {
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+#sub {
+    background-color: #3CBC8D;
+    color: white;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+#logo {
+	position: relative;
+	left: 22px;
+	top: 0px;
+	width: 133px;
+	height: 133px;
+	z-index: 4;
+}
+
+#signin  {
+	position: relative;
+	float: right;
+	top: -120px;
+	color: white;
+	text-align:center;
+	display: block;
+	padding-bottom: 4px;
+	padding-right: 10px;
+	min-width: 36px;
+	z-index: 4
+}
+
+#signin a {
+	color: white;
+}
+
+#update_box {
+	position: relative;
+	left: 40%;
+	padding-top: 10px;
+}
+
+#update_box label, input{
+	display: block;
+}
+
+#update_box label{
+	text-align:left;
+	margin-bottom: 20px;
+}
+
+
+#standtable {
+	border-collapse: collapse;
+	width: 1px;
+}
+
+#standtable td {
+ 	width: 1px;
+	white-space: nowrap;
+	padding-left: 50px;
+}
+
+#ranktable th {
+	text-align:left;
+}
+
+#standtable th {
+	text-align: left;
+	width: auto;
+	padding-left: 50px;
+}
+
+#signin-button  {
+    white-space: nowrap;
+    text-transform: uppercase;
+    padding: 0 16px;
+    margin: 0 16px;
+    background-color: rgba(255,255,255,.15);
+    color: #fff;
+	height: 36px;
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color .2s,color .2s;
+    border: none;
+}
+
+#menu {
+	position: relative;
+	top: -80px;
+    background-image: -webkit-linear-gradient(top, #324780, #111);
+	min-width: 700px;
+	z-index: 2;
+}
+
+.navlinks {
+	text-transform: uppercase;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+.navlink {
+    float: left;
+}
+.navlink #spacer {
+    display: block;
+    padding: 14px 80px;
+}
+
+.navlink a:hover {
+    background-color: #111;
+}
+
+.navlink a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	
+}
+
+#content {
+	position: relative;
+	margin: auto;
+	display: block;
+	width: 75%;
+	top: 20%;
+	border: 1px solid black;
+	padding: 10px;
+	background-color: #f7f7f7;
+	min-height: 100px;
+	min-width: 900px;
+	overflow: hidden;
+	text-align: center;
+}
+
+#copyright {
+
+	position: relative;
+	top:50%;
+	text-align: center;
+}
+
+.box{
+	padding: 10px 10px 10px 10px;	
+    position: relative;
+	width: 80%;
+	min-height: 00px;
+	min-width: 200px;
+    overflow: hidden;	
+	background-color: white;
+	box-shadow: 2px 2px 2px #888888;
+}
+
+#content td {
+    width: 25%;
+    max-width: 250px;
+	max-height:40px;	
+}
+
+#standings-header {
+	position: relative;
+	background-color: #cccbc1;
+	height: 50px;
+	text-align: center;
+}
+
+#standings-league {
+  position: relative;
+  background-color: #324780;
+  height: 20px;
+  color: white;
+  text-align: center;
+}
+
+#standings-table{
+  border-collapse: collapse;
+}
+
+#standings-table th {
+	background-color: #cccbc1;
+	width:575px;
+	text-align: center;
+}
+
+#standings-table td {
+	border: 2px solid #e7e7e7;
+	background-image: -webkit-linear-gradient(top, #FFF, #e7e7e7);
+	padding:0; margin:0;
+	text-align: center;	
+}
+
+#sign_table{
+	position: relative;
+	margin-top: 10px;
+	border-collapse: collapse;
+    margin-left:auto; 
+    margin-right:auto;
+	top: 20%;
+	
+}
+
+#sign_table td{
+	width: 20px;
+	padding-right: 10px;
+	
+}
+
+.teamsize{
+	min-width: 120px;
+}
+.wltsize{
+	min-width: 35px;
+}
+.pctsize{
+	min-width: 35px;
+}
+
+#scores-table{
+	border-collapse: collapse;
+}
+
+#scores-header {
+  position: relative;
+  background-color: #cccbc1;
+  height: 40px;
+  text-align: center;
+}
+
+.fancy {
+	border: 2px solid #e7e7e7;
+	background-image: -webkit-linear-gradient(top, #FFF, #e7e7e7);
+	padding:0; margin:0;
+	text-align: left;
+	width: 300px;
+	min-width: 175px;
+	
+}
+
+#scores-table p{
+	position: relative;
+    margin: 0;
+    padding: 0;  
+	display: inline;
+	float: right;
+}
+
+.roundblack {
+	color: white;
+	display: relative;
+    text-align:center;
+	border-radius: 5px;
+    background: #000;
+    padding: 10px;
+}
+
+.headertext {
+	position: relative;
+    margin: 0;
+    padding: 0;  
+	display: inline;
+	font-size: 32px;	
+}
+
+.divider {
+	background-color: #324780;
+	height:20px;
+}
+
+#news-header {
+	position: relative;
+	background-color: #cccbc1;
+	height: 50px;
+	text-align: center;
+}
