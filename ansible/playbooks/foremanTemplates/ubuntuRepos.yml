@@ -1,0 +1,35 @@
+<%#
+kind: snippet
+name: Ubuntu Repositories
+oses:
+- Ubuntu
+%>
+
+cat << 'EOF' > /etc/apt/sources.list
+deb http://mirror.core.co/ubuntu/ precise main restricted
+deb-src http://mirror.core.co/ubuntu/ precise main restricted
+
+deb http://mirror.core.co/ubuntu/ precise-updates main restricted
+deb-src http://mirror.core.co/ubuntu/ precise-updates main restricted
+
+deb http://mirror.core.co/ubuntu/ precise universe
+deb-src http://mirror.core.co/ubuntu/ precise universe
+deb http://mirror.core.co/ubuntu/ precise-updates universe
+deb-src http://mirror.core.co/ubuntu/ precise-updates universe
+
+deb http://mirror.core.co/ubuntu/ precise multiverse
+deb-src http://mirror.core.co/ubuntu/ precise multiverse
+deb http://mirror.core.co/ubuntu/ precise-updates multiverse
+deb-src http://mirror.core.co/ubuntu/ precise-updates multiverse
+
+deb http://mirror.core.co/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirror.core.co/ubuntu/ precise-backports main restricted universe multiverse
+
+deb http://mirror.core.co/ubuntu precise-security main restricted
+deb-src http://mirror.core.co/ubuntu precise-security main restricted
+deb http://mirror.core.co/ubuntu precise-security universe
+deb-src http://mirror.core.co/ubuntu precise-security universe
+deb http://mirror.core.co/ubuntu precise-security multiverse
+deb-src http://mirror.core.co/ubuntu precise-security multiverse
+EOF
+
