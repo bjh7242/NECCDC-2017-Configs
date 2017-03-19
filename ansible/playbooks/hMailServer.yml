@@ -3,18 +3,13 @@
   remote_user: admin
 
   tasks:
-#      - name: Upload .NET feature config file
-#        win_copy: 
-#          src: conf/dotnetfeatureinstall.xml
-#          dest: C:\dotnetfeatureinstall.xml
-#
-#      - name: Execute .NET powershell installer script
-#        script: scripts/hmailinstall.ps1
+      - name: Upload .NET feature config file
+        win_copy: 
+          src: conf/dotnetfeatureinstall.xml
+          dest: C:\dotnetfeatureinstall.xml
 
-#      - name: Upload hMail executable
-#        win_copy:
-#          src: exe/hMailServer-5.6.6-B2383.exe
-#          dest: C:\hMailServer-5.6.6-B2383.exe
+      - name: Execute .NET powershell installer script
+        script: scripts/hmailinstall.ps1
 
       - name: Upload hMail executable
         win_copy:
@@ -36,15 +31,15 @@
           src: scripts/hmailusers.ps1
           dest: C:\hmailusers.ps1
 
-#      - name: Execute .NET powershell installer script
-#        script: scripts/hmailusers.ps1 {{ domainname }} 
+      - name: Execute .NET powershell installer script
+        script: scripts/hmailusers.ps1 {{ domainname }} 
 
-#      - name: Delete dotnetfeatureinstall.xml
-#        win_file:
-#          path: C:\dotnetfeatureinstall.xml
-#          state: absent
+      - name: Delete dotnetfeatureinstall.xml
+        win_file:
+          path: C:\dotnetfeatureinstall.xml
+          state: absent
 
-#      - name: Delete useraccounts.csv
-#        win_file:
-#          path: C:\useraccounts.csv
-#          state: absent
+      - name: Delete useraccounts.csv
+        win_file:
+          path: C:\useraccounts.csv
+          state: absent
