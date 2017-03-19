@@ -1,4 +1,10 @@
 # Ansible Playbooks & Automation
+
+### Disclaimer
+All IPs/ssh keys/API tokens,etc... are no longer associated with this competition.
+This data was made public so that teams can prepare in their own labs for next year.
+
+
 #### AWS Production Topology
 ![AWS_NECCDC_2017](NECCDC_AWS_Topology.PNG)
 
